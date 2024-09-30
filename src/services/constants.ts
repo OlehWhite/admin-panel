@@ -2,8 +2,8 @@ import { IAuthorization } from "../types/login.types.ts";
 import { IBreadcrumbs, IRoles } from "../types/role.types.ts";
 
 export const DEFAULT_AUTHORIZATION: IAuthorization = {
-  login: "oleg220298d@gmail.com", // must be empty
-  password: "Welcome1!", // must be empty
+  login: "", 
+  password: "", 
   failed: null,
 };
 

@@ -4,13 +4,14 @@ export const getTheme = () => {
   return createTheme({
     typography: {
       fontFamily: ["Inter", "sans-serif"].join(","),
-      body1: {
+      // @ts-ignore
+      body: {
         fontSize: "24px",
         lineHeight: "1.2",
         fontWeight: 400,
         color: "#fff",
       },
-      body2: {
+      smallBody: {
         fontSize: "20px",
         lineHeight: "1.2",
         fontWeight: 400,
@@ -34,7 +35,7 @@ export const getTheme = () => {
         fontWeight: 600,
         color: "#1e1e1e",
       },
-      subtitle1: {
+      summary: {
         fontSize: "40px",
         lineHeight: "1.2",
         fontWeight: 800,

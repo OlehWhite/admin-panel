@@ -57,7 +57,6 @@ const WebSite = () => {
 
   const handleSave = async () => {
     console.log("Save");
-    // const id = Object.entries(websites)[0][0];
     //
     // const updatedWebsites = {
     //   id:

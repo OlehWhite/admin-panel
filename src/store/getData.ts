@@ -26,5 +26,6 @@ export const useGetWebsites = () => {
 export const user = localStorage.getItem("user");
 
 export const getCurrentUser = () => {
-  return JSON.parse(localStorage.getItem("user"));
+  const user = localStorage.getItem("user");
+  return user ? JSON.parse(user) : null;
 };

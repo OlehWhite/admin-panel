@@ -40,7 +40,7 @@ const Main = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
           id="title"
           label="Title"
           type="text"
-          value={stateWebsite.title}
+          value={stateWebsite?.title}
           onChange={(e) => {
             setStateWebsite((prevState) => ({
               ...prevState,

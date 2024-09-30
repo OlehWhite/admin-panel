@@ -18,6 +18,9 @@ import { auth } from "../store/login.ts";
 import { VERIFY_KEY } from "../services/firebase.ts";
 import { BREADCRUMBS_PROFILE, ROLES } from "../services/constants.ts";
 
+import { IUser } from "../types/login.types.ts";
+import { IAccess } from "../types/role.types.ts";
+
 import Layout from "../components/Layout.tsx";
 import Button from "../components/shared/Button.tsx";
 
@@ -25,9 +28,9 @@ const Profile = () => {
   const navigate = useNavigate();
   const initialUser = getCurrentUser();
 
-  const [user, setUser] = useState(initialUser);
+  const [user, setUser] = useState<IUser>(initialUser);
   const [role, setRole] = useState<string>(user.name);
-  const [access, setAccess] = useState<any>({ key: "", error: "" });
+  const [access, setAccess] = useState<IAccess>({ key: "", error: "" });
 
   useEffect(() => {
     setRole(user.name);
@@ -59,7 +62,11 @@ const Profile = () => {
         }));
       }
     } catch (error) {
-      console.error("Error updating display name:", error.message);
+      if (error instanceof Error) {
+        console.error("Error updating display name:", error.message);
+      } else {
+        console.error("An unknown error occurred:", error);
+      }
     }
   };
 

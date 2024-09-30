@@ -42,6 +42,37 @@ export const BREADCRUMBS_WEBSITE: IBreadcrumbs[] = [
   },
 ];
 
+export const DEFAULT_WEBSITE = {
+  id: "",
+  keyName: "",
+  title: "",
+  headerImages: [],
+  schedule: [
+    { day: "Sunday", open: "", close: "" },
+    { day: "Monday", open: "", close: "" },
+    { day: "Tuesday", open: "", close: "" },
+    { day: "Wednesday", open: "", close: "" },
+    { day: "Thursday", open: "", close: "" },
+    { day: "Friday", open: "", close: "" },
+    { day: "Saturday", open: "", close: "" },
+  ],
+  address: "",
+  tel: "",
+  googleMaps: "",
+  links: [{ link: "", title: "" }],
+  blogs: [
+    {
+      img: "",
+      title: "",
+      text: "",
+    },
+  ],
+  locations: [{ img: "", link: "", address: "", email: "", text: "" }],
+  email: "",
+  ourPartners: [],
+  doctors: [{ img: "", name: "", firstName: "", text: "" }],
+};
+
 export const test = {
   POSITIVE_RESET_SERVICES: {
     id: "kjh123kjhg432jhg23jlh4g",

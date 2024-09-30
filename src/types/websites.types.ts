@@ -1,11 +1,14 @@
+import { Dispatch, SetStateAction } from "react";
+
 export interface Website {
   id: string;
+  keyName: string;
   title: string;
+  headerImages: any[];
+  schedule: { day: string; open: string; close: string }[];
   address: string;
   tel: string;
   googleMaps: string;
-  headerImages: string[];
-  schedule: { day: string; time: string }[];
   links: { link: string; title: string }[];
   blogs: { img: string; title: string; text: string }[];
   locations: {
@@ -20,17 +23,15 @@ export interface Website {
   doctors: { img: string; name: string; firstName: string; text: string }[];
 }
 
-// Тип для структури проекту
 export interface Project {
   [key: string]: Website;
 }
 
-// Тип для всієї колекції проектів
 export interface WebsitesCollection {
   [docId: string]: Project;
 }
 
 export interface IWebsiteState {
-  stateWebsite: any;
-  setStateWebsite: any;
+  stateWebsite: Website;
+  setStateWebsite: Dispatch<SetStateAction<Website>>;
 }

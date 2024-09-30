@@ -4,13 +4,13 @@ export const getTheme = () => {
   return createTheme({
     typography: {
       fontFamily: ["Inter", "sans-serif"].join(","),
-      body: {
+      body1: {
         fontSize: "24px",
         lineHeight: "1.2",
         fontWeight: 400,
         color: "#fff",
       },
-      smallBody: {
+      body2: {
         fontSize: "20px",
         lineHeight: "1.2",
         fontWeight: 400,
@@ -34,7 +34,7 @@ export const getTheme = () => {
         fontWeight: 600,
         color: "#1e1e1e",
       },
-      summary: {
+      subtitle1: {
         fontSize: "40px",
         lineHeight: "1.2",
         fontWeight: 800,
@@ -43,26 +43,25 @@ export const getTheme = () => {
     },
     palette: {
       primary: {
-        main: "rgba(0,0,0,0.85)", // Change this to your desired color
+        main: "rgba(0,0,0,0.85)",
       },
       text: {
-        primary: "#000", // Text color for inputs and labels
+        primary: "#000",
       },
     },
     components: {
       MuiInputBase: {
         styleOverrides: {
           root: {
-            // Default input border and text color
-            color: "#000", // Text color inside the input
+            color: "#000",
             "& fieldset": {
-              borderColor: "#000", // Default border color
+              borderColor: "#000",
             },
             "&:hover fieldset": {
-              borderColor: "#000", // Border color on hover
+              borderColor: "#000",
             },
             "&.Mui-focused fieldset": {
-              borderColor: "#000", // Border color when focused
+              borderColor: "#000",
             },
           },
         },

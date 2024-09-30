@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Stack, TextField, Typography } from "@mui/material";
 
@@ -16,7 +16,7 @@ const Login = () => {
     DEFAULT_AUTHORIZATION,
   );
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     const user = await login(authorization.login, authorization.password);
@@ -59,7 +59,7 @@ const Login = () => {
           background: "rgba(255,255,255,0.31)",
           backdropFilter: "blur(100px)",
         }}
-        onSubmit={handleSubmit}
+        onSubmit={(e) => handleSubmit(e)}
       >
         <TextField
           id="login"
@@ -95,7 +95,11 @@ const Login = () => {
           <Typography color="red">{authorization.failed}</Typography>
         )}
 
-        <Button value="Login" sx={{ height: 56 }} onClick={handleSubmit} />
+        <Button
+          value="Login"
+          sx={{ height: 56 }}
+          onClick={(e) => handleSubmit(e)}
+        />
       </Stack>
     </Stack>
   );

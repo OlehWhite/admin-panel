@@ -61,7 +61,7 @@ const Layout = ({ children, breadcrumbs }: Props) => {
                 width: "auto",
               }}
               alt="Logo"
-              litle="Logo"
+              title="Logo"
               src={logo as string}
             />
 

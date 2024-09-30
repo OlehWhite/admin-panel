@@ -61,7 +61,7 @@ const Layout = ({ children, breadcrumbs }: Props) => {
                 width: "auto",
               }}
               alt="Logo"
-              title="Logo"
+              litle="Logo"
               src={logo as string}
             />
 
@@ -78,7 +78,7 @@ const Layout = ({ children, breadcrumbs }: Props) => {
             <Box component="span" fontWeight={600}>
               Role:{" "}
             </Box>
-            {user.name}
+            {user?.name}
           </Typography>
 
           <Stack direction="row" alignItems="center" gap={3}>

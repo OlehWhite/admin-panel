@@ -60,7 +60,7 @@ const WebSite = () => {
     // const updatedWebsites = {
     //   id:
     // };
-    //
+    
     // console.log(updatedWebsites);
 
     await saveProjectsToFirestore(test); // зберігати websites + stateWebsite

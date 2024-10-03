@@ -6,9 +6,10 @@ import { Avatar, Stack, Box, Typography } from "@mui/material";
 import logo from "../assets/logo.png";
 
 import { useLogOut } from "../store/logout.ts";
-import { getCurrentUser } from "../store/getData.ts";
+import { getCurrentUser, useGetWebsites } from "../store/getData.ts";
 
 import Button from "./shared/Button.tsx";
+import Loader from "./Loader.tsx";
 
 interface Props {
   children: ReactNode;
@@ -17,6 +18,7 @@ interface Props {
 const Layout = ({ children }: Props) => {
   const navigate = useNavigate();
   const user = getCurrentUser();
+  const { websites } = useGetWebsites();
 
   const handleOpenProfile = () => {
     navigate("/profile");
@@ -29,6 +31,14 @@ const Layout = ({ children }: Props) => {
   const handleBack = () => {
     navigate(-1);
   };
+
+  const handleGoHome = () => {
+    navigate("/");
+  };
+
+  if (!websites) {
+    return <Loader />;
+  }
 
   return (
     <Stack width="100%" bgcolor="#f6ffff">
@@ -85,14 +95,25 @@ const Layout = ({ children }: Props) => {
       </Stack>
 
       <Stack width="100%" maxWidth="1440px" margin="0 auto" py={3}>
-        <Button
-          value="Back"
-          onClick={handleBack}
-          sx={{
-            width: 80,
-            mb: 3,
-          }}
-        />
+        <Stack direction="row" gap={2}>
+          <Button
+            value="Back"
+            onClick={handleBack}
+            sx={{
+              width: 80,
+              mb: 3,
+            }}
+          />
+
+          <Button
+            value="Home"
+            onClick={handleGoHome}
+            sx={{
+              width: 80,
+              mb: 3,
+            }}
+          />
+        </Stack>
 
         {children}
       </Stack>

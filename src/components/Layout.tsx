@@ -6,10 +6,9 @@ import { Avatar, Stack, Box, Typography } from "@mui/material";
 import logo from "../assets/logo.png";
 
 import { useLogOut } from "../store/logout.ts";
-import { getCurrentUser, useGetWebsites } from "../store/getData.ts";
+import { getCurrentUser } from "../store/getData.ts";
 
 import Button from "./shared/Button.tsx";
-import Loader from "./Loader.tsx";
 
 interface Props {
   children: ReactNode;
@@ -18,14 +17,14 @@ interface Props {
 const Layout = ({ children }: Props) => {
   const navigate = useNavigate();
   const user = getCurrentUser();
-  const { websites } = useGetWebsites();
-
-  const handleOpenProfile = () => {
-    navigate("/profile");
-  };
 
   const handleLogOut = async () => {
-    await useLogOut(navigate);
+    try {
+      localStorage.clear();
+      await useLogOut(navigate);
+    } catch (error) {
+      console.error("Failed  to Log out: ", error);
+    }
   };
 
   const handleBack = () => {
@@ -35,10 +34,6 @@ const Layout = ({ children }: Props) => {
   const handleGoHome = () => {
     navigate("/");
   };
-
-  if (!websites) {
-    return <Loader />;
-  }
 
   return (
     <Stack width="100%" bgcolor="#f6ffff">
@@ -87,8 +82,6 @@ const Layout = ({ children }: Props) => {
           </Typography>
 
           <Stack direction="row" alignItems="center" gap={3}>
-            <Button value="Profile" onClick={handleOpenProfile} />
-
             <Button value="Log Out" onClick={handleLogOut} />
           </Stack>
         </Stack>
@@ -101,7 +94,6 @@ const Layout = ({ children }: Props) => {
             onClick={handleBack}
             sx={{
               width: 80,
-              mb: 3,
             }}
           />
 
@@ -110,7 +102,6 @@ const Layout = ({ children }: Props) => {
             onClick={handleGoHome}
             sx={{
               width: 80,
-              mb: 3,
             }}
           />
         </Stack>

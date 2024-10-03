@@ -40,10 +40,31 @@ export const DEFAULT_WEBSITE = {
       id: "",
     },
   ],
-  locations: [{ img: "", link: "", address: "", email: "", text: "" }],
+  locations: [
+    {
+      image: "",
+      link: "",
+      address: "",
+      email: "",
+      text: "",
+      title: "",
+      tel: "",
+      googleMap: "",
+    },
+  ],
   email: "",
-  ourPartners: [],
-  doctors: [{ img: "", name: "", firstName: "", text: "" }],
+  ourPartners: [{ link: "", title: "", image: "" }],
+  doctors: [
+    {
+      image: "",
+      firstName: "",
+      lastName: "",
+      age: 0,
+      text: "",
+      title: "",
+      link: "",
+    },
+  ],
 };
 
 export const DEFAULT_BLOG = {

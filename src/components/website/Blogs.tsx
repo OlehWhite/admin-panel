@@ -72,9 +72,11 @@ const Blogs = ({ stateWebsite }: IWebsiteState) => {
               key={block.id}
               sx={{
                 cursor: "pointer",
-                "&:hover": {
-                  transition: ".3s",
-                  backgroundColor: "#d1d1d1fc",
+                transition: ".5s",
+
+                ":hover": {
+                  transition: ".5s",
+                  backgroundColor: "#a6eaf37a",
                 },
               }}
               direction="row"

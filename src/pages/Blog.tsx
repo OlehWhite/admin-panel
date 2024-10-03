@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Box, Stack, TextField } from "@mui/material";
+import { Box, Stack, TextField, Typography } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -11,13 +11,13 @@ import { PickerValidDate } from "@mui/x-date-pickers";
 import { DEFAULT_BLOG, DEFAULT_WEBSITE } from "../services/constants.ts";
 import { generateId } from "../services/utils.ts";
 import { IBlog, Project, Website } from "../types/websites.types.ts";
-import { useGetWebsites } from "../store/getData.ts";
+import { useGetBlog, useGetWebsites } from "../store/getData.ts";
 import { saveProjectsToFirestore } from "../store/updateProjects.ts";
 
 import emptyImag from "../assets/empty-img.png";
 
-import Button from "../components/shared/Button.tsx";
 import Layout from "../components/Layout.tsx";
+import Button from "../components/shared/Button.tsx";
 
 const Blog = () => {
   const { id: uid } = generateId();
@@ -25,10 +25,7 @@ const Blog = () => {
   const navigate = useNavigate();
 
   const { websites } = useGetWebsites();
-  const storeBlogString = localStorage.getItem("blog");
-  const storeBlog = storeBlogString
-    ? JSON.parse(storeBlogString)
-    : DEFAULT_BLOG;
+  const { storeBlog } = useGetBlog();
 
   const [stateWebsite, setStateWebsite] = useState<Website>(DEFAULT_WEBSITE);
   const [blog, setBlog] = useState<IBlog>(DEFAULT_BLOG);
@@ -85,9 +82,9 @@ const Blog = () => {
     }
   };
 
-  const handleDateChange = (newValue: dayjs.Dayjs | null) => {
-    if (newValue) {
-      const formattedDate = dayjs(newValue).format("MMMM D, YYYY");
+  const handleDateChange = (date: dayjs.Dayjs | null) => {
+    if (date) {
+      const formattedDate = dayjs(date).format("MMMM D, YYYY");
       setBlog((prevState) => ({
         ...prevState,
         date: formattedDate,
@@ -181,6 +178,16 @@ const Blog = () => {
 
   return (
     <Layout>
+      <Typography
+        variant="h5"
+        fontWeight={600}
+        color="rgb(55 152 210 / 98%)"
+        sx={{ mb: 2 }}
+        textAlign="center"
+      >
+        {stateWebsite.title || "Loading..."}
+      </Typography>
+
       <Stack
         boxShadow="0px 0px 13px 0px #000000a8"
         borderRadius={2}
@@ -200,53 +207,53 @@ const Blog = () => {
             }}
           />
 
-          <Stack direction="column" gap={3} width="100%">
-            <Stack direction="row" gap={3}>
-              <Button
-                value={blog?.image ? "Update photo" : "Add photo"}
-                color="info"
-                onClick={() =>
-                  document.getElementById(`file-input-${blog.id}`)?.click()
-                }
+          <Stack direction="column" gap={3.4} width="100%">
+            <Button
+              value={blog?.image ? "Update photo" : "Add photo"}
+              color="info"
+              onClick={() =>
+                document.getElementById(`file-input-${blog.id}`)?.click()
+              }
+              sx={{
+                height: 56,
+                width: 200,
+              }}
+            />
+
+            <input
+              id={`file-input-${blog.id}`}
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={(e) => handleFileChange(e)}
+            />
+
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="Select a date"
+                value={(dayjs(blog.date) as unknown as PickerValidDate) || null}
+                onChange={handleDateChange}
                 sx={{
-                  height: 56,
+                  backgroundColor: "#fff",
+                  width: 200,
                 }}
               />
-
-              <input
-                id={`file-input-${blog.id}`}
-                type="file"
-                accept="image/*"
-                style={{ display: "none" }}
-                onChange={(e) => handleFileChange(e)}
-              />
-
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label="Select a date"
-                  value={
-                    (dayjs(blog.date) as unknown as PickerValidDate) || null
-                  }
-                  onChange={handleDateChange}
-                  sx={{
-                    backgroundColor: "#fff",
-                  }}
-                />
-              </LocalizationProvider>
-            </Stack>
+            </LocalizationProvider>
 
             <TextField
               id="title"
               label="Title"
               type="text"
               value={blog?.title}
+              multiline
+              rows={3}
               onChange={(e) => {
                 setBlog((prevState) => ({
                   ...prevState,
                   title: e.target.value,
                 }));
               }}
-              sx={{ backgroundColor: "#fff" }}
+              sx={{ backgroundColor: "#fff", height: 100 }}
             />
           </Stack>
         </Stack>
@@ -268,9 +275,11 @@ const Blog = () => {
                     text: updatedText,
                   }));
                 }}
-                sx={{ backgroundColor: "#fff", flex: 1 }}
-                InputProps={{
-                  sx: {
+                sx={{
+                  backgroundColor: "#fff",
+                  flex: 1,
+
+                  "& .MuiInputBase-root": {
                     height: 130,
                     alignItems: "flex-start",
                   },
@@ -278,7 +287,6 @@ const Blog = () => {
               />
 
               <Button
-                variant="contained"
                 value="Delete pharagraph"
                 color="error"
                 onClick={() => {

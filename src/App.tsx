@@ -7,7 +7,6 @@ import UserLoader from "./components/UserLoader.tsx";
 
 import Login from "./pages/Login.tsx";
 import Home from "./pages/Home.tsx";
-import Profile from "./pages/Profile.tsx";
 import WebSite from "./pages/WebSite.tsx";
 import Blog from "./pages/Blog.tsx";
 
@@ -20,7 +19,6 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="/website/:id" element={<WebSite />} />
         <Route path="/website/:id/blogs" element={<Blog />} />
         <Route path="/website/:id/blogs/:idBlog" element={<Blog />} />

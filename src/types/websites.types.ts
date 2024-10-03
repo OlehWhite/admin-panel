@@ -4,23 +4,61 @@ export interface Website {
   id: string;
   keyName: string;
   title: string;
-  headerImages: any[];
-  schedule: { day: string; open: string; close: string }[];
+  headerImages: IHeaderImage[];
+  schedule: ISchedule[];
   address: string;
   tel: string;
   googleMaps: string;
-  links: { link: string; title: string }[];
+  links: ILink[];
   blogs: IBlog[];
-  locations: {
-    img: string;
-    link: string;
-    address: string;
-    email: string;
-    text: string;
-  }[];
+  locations: ILocation[];
   email: string;
-  ourPartners: any[];
-  doctors: { img: string; name: string; firstName: string; text: string }[];
+  ourPartners: IOurPartner[];
+  doctors: IDoctor[];
+}
+
+export interface IOurPartner {
+  link: string;
+  title: string;
+  image: string;
+}
+
+export interface IDoctor {
+  image: string;
+  firstName: string;
+  lastName: string;
+  age: number;
+  text: string;
+  title: string;
+  link: string;
+}
+
+export interface ILink {
+  link: string;
+  title: string;
+}
+
+export interface IHeaderImage {
+  image: string;
+  title: string;
+  text: string;
+}
+
+export interface ISchedule {
+  day: string;
+  open: string;
+  close: string;
+}
+
+export interface ILocation {
+  image: string;
+  link: string;
+  address: string;
+  email: string;
+  text: string;
+  title: string;
+  tel: string;
+  googleMap: string;
 }
 
 export interface IBlog {

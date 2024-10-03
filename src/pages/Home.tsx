@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import { useGetWebsites } from "../store/getData.ts";
@@ -17,6 +17,16 @@ const Home = () => {
 
   return (
     <Layout>
+      <Typography
+        variant="h5"
+        fontWeight={600}
+        color="rgb(55 152 210 / 98%)"
+        sx={{ mb: 2 }}
+        textAlign="center"
+      >
+        Clinics
+      </Typography>
+
       <Stack direction="row" flexWrap="wrap" gap={5}>
         {Object.entries(websites).map(([_, project]) =>
           Object.entries(project).map(([key, website]) => (

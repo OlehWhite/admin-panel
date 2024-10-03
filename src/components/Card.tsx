@@ -22,8 +22,9 @@ const Card = ({ website }: Props) => {
       border="1px solid #000"
       sx={{
         cursor: "pointer",
-        transition: ".3s",
+        transition: ".5s",
         backgroundColor: "#fff",
+        boxShadow: "0px 0px 7px 0px #000",
 
         ":hover": {
           transition: ".5s",
@@ -39,15 +40,15 @@ const Card = ({ website }: Props) => {
       <Box borderBottom="1px solid #000" />
 
       <Typography>
-        Address: <Box component="strong">{website.address}</Box>
+        Address: <Box component="strong">{website.address || "-"}</Box>
       </Typography>
 
       <Typography>
-        Telephone: <Box component="strong">{website.tel}</Box>
+        Telephone: <Box component="strong">{website.tel || "-"}</Box>
       </Typography>
 
       <Typography>
-        Email: <Box component="strong">{website.email}</Box>
+        Email: <Box component="strong">{website.email || "-"}</Box>
       </Typography>
     </Stack>
   );

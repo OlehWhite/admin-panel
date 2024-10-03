@@ -24,13 +24,19 @@ const Schedule = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
     <Accordion>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        aria-controls="panel2-content"
-        id="panel2-header"
+        aria-controls="schedule"
+        id="schedule"
       >
-        <Typography fontSize={20}>Schedule</Typography>
+        <Typography fontSize={20}>
+          Schedule{" "}
+          <Box component="span" fontSize={16} fontWeight={200}>
+            {" "}
+            ( Day, Open time, Close time )
+          </Box>
+        </Typography>
       </AccordionSummary>
 
-      <Box borderBottom="1px solid #000" mb={2} />
+      <Box borderBottom="1px solid #BEBEBE" mb={2} />
 
       <AccordionDetails>
         <Stack gap={3}>

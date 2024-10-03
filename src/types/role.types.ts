@@ -4,11 +4,6 @@ export interface IRoles {
   manager: string;
 }
 
-export interface IBreadcrumbs {
-  title: string;
-  link: string;
-}
-
 export interface IAccess {
   key: string;
   error: string;

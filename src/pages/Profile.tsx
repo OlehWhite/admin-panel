@@ -16,7 +16,7 @@ import {
 import { getCurrentUser } from "../store/getData.ts";
 import { auth } from "../store/login.ts";
 import { VERIFY_KEY } from "../services/firebase.ts";
-import { BREADCRUMBS_PROFILE, ROLES } from "../services/constants.ts";
+import { ROLES } from "../services/constants.ts";
 
 import { IUser } from "../types/login.types.ts";
 import { IAccess } from "../types/role.types.ts";
@@ -29,11 +29,13 @@ const Profile = () => {
   const initialUser = getCurrentUser();
 
   const [user, setUser] = useState<IUser>(initialUser);
-  const [role, setRole] = useState<string>(user.name);
+  const [role, setRole] = useState<string>(user?.name || "");
   const [access, setAccess] = useState<IAccess>({ key: "", error: "" });
 
   useEffect(() => {
-    setRole(user.name);
+    if (user) {
+      setRole(user.name);
+    }
   }, [user]);
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -71,7 +73,7 @@ const Profile = () => {
   };
 
   return (
-    <Layout breadcrumbs={BREADCRUMBS_PROFILE}>
+    <Layout>
       <Stack gap={3}>
         <Stack direction="row" gap={3}>
           <FormControl sx={{ width: "100%", maxWidth: 300 }}>
@@ -104,15 +106,17 @@ const Profile = () => {
 
         {access.error && <Typography color="red">{access.error}</Typography>}
 
-        <Button
-          value="Change"
-          onClick={handleSave}
-          sx={{
-            width: "100%",
-            maxWidth: 300,
-            height: 56,
-          }}
-        />
+        <Stack mt={4} direction="row" width="100%" justifyContent="center">
+          <Button
+            value="Change"
+            onClick={handleSave}
+            sx={{
+              width: "100%",
+              maxWidth: 300,
+              height: 56,
+            }}
+          />
+        </Stack>
       </Stack>
     </Layout>
   );

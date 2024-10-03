@@ -10,7 +10,7 @@ export interface Website {
   tel: string;
   googleMaps: string;
   links: { link: string; title: string }[];
-  blogs: { img: string; title: string; text: string }[];
+  blogs: IBlog[];
   locations: {
     img: string;
     link: string;
@@ -21,6 +21,14 @@ export interface Website {
   email: string;
   ourPartners: any[];
   doctors: { img: string; name: string; firstName: string; text: string }[];
+}
+
+export interface IBlog {
+  image: string;
+  title: string;
+  text: string[];
+  date: string;
+  id: string;
 }
 
 export interface Project {

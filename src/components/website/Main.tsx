@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react";
 import {
   Accordion,
   AccordionDetails,
@@ -15,6 +16,20 @@ const sx = {
 };
 
 const Main = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
+  const formatString = (str: string) => {
+    return str.replace(/\s+/g, "_").toUpperCase();
+  };
+
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setStateWebsite((prevState) => ({
+      ...prevState,
+      title: e.target.value,
+      keyName: formatString(e.target.value),
+    }));
+  };
+
   return (
     <Accordion>
       <AccordionSummary
@@ -23,11 +38,15 @@ const Main = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
         id="main"
       >
         <Typography fontSize={20}>
-          Title, Email, Telephone, Address, Google Map
+          Main
+          <Box component="span" fontSize={16} fontWeight={200}>
+            {" "}
+            ( Title, Email, Telephone, Address, Google Map )
+          </Box>
         </Typography>
       </AccordionSummary>
 
-      <Box borderBottom="1px solid #000" mb={2} />
+      <Box borderBottom="1px solid #BEBEBE" mb={2} />
 
       <AccordionDetails
         sx={{
@@ -41,12 +60,7 @@ const Main = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
           label="Title"
           type="text"
           value={stateWebsite?.title}
-          onChange={(e) => {
-            setStateWebsite((prevState) => ({
-              ...prevState,
-              title: e.target.value,
-            }));
-          }}
+          onChange={handleChange}
           sx={sx}
         />
 

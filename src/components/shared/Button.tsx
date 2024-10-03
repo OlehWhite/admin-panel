@@ -1,15 +1,31 @@
 import { MouseEvent } from "react";
-import { Button as MUIButton, SxProps } from "@mui/material";
+import { Button as MUIButton, ButtonProps, SxProps } from "@mui/material";
 
 interface Props {
   value: string;
   onClick: (e: MouseEvent<HTMLButtonElement>) => void;
   sx?: SxProps;
+  disabled?: boolean;
+  color?: ButtonProps["color"];
+  variant?: ButtonProps["variant"];
 }
 
-const Button = ({ value, onClick, sx }: Props) => {
+const Button = ({
+  value,
+  onClick,
+  sx,
+  disabled,
+  variant = "contained",
+  color,
+}: Props) => {
   return (
-    <MUIButton variant="contained" sx={sx} onClick={onClick}>
+    <MUIButton
+      sx={sx}
+      onClick={onClick}
+      disabled={disabled}
+      variant={variant}
+      color={color}
+    >
       {value}
     </MUIButton>
   );

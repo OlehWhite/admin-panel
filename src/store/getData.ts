@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { db } from "../services/firebase.ts";
 import { collection, onSnapshot } from "firebase/firestore";
+import { WebsitesCollection } from "../types/websites.types.ts";
 
 export const useGetWebsites = () => {
-  const [websites, setWebsites] = useState<any>({});
+  const [websites, setWebsites] = useState<WebsitesCollection | {}>({});
 
   const fetchData = () => {
     return onSnapshot(collection(db, "projects"), (snapshot) => {

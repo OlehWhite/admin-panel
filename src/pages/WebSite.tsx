@@ -1,37 +1,33 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { Stack, Typography } from "@mui/material";
 
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Website } from "../types/websites.types.ts";
+import { DEFAULT_WEBSITE } from "../services/constants.ts";
 
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Website, WebsitesCollection } from "../types/websites.types.ts";
-import {
-  BREADCRUMBS_WEBSITE,
-  DEFAULT_WEBSITE,
-  test,
-} from "../services/constants.ts";
-
+import { generateId } from "../services/utils.ts";
 import { useGetWebsites } from "../store/getData.ts";
 import { saveProjectsToFirestore } from "../store/updateProjects.ts";
 
 import Layout from "../components/Layout.tsx";
 import Main from "../components/website/Main.tsx";
+import Blogs from "../components/website/Blogs.tsx";
 import Button from "../components/shared/Button.tsx";
-import Loader from "../components/Loader.tsx";
+import Doctors from "../components/website/Doctors.tsx";
+import Locations from "../components/website/Locations.tsx";
 import Schedule from "../components/website/Schedule.tsx";
+import OurPartners from "../components/website/OurPartners.tsx";
+import HeaderImages from "../components/website/HeaderImages.tsx";
+import SocialsMedia from "../components/website/SocialsMedia.tsx";
 
 const WebSite = () => {
   const { id } = useParams();
-  const { websites }: { websites: WebsitesCollection } = useGetWebsites();
+  const { id: uid } = generateId();
+  const navigate = useNavigate();
+
+  const { websites } = useGetWebsites();
 
   const [stateWebsite, setStateWebsite] = useState<Website>(DEFAULT_WEBSITE);
-  console.log(stateWebsite);
 
   useEffect(() => {
     if (websites) {
@@ -49,25 +45,81 @@ const WebSite = () => {
     }
   }, [websites, id]);
 
-  if (!stateWebsite) {
-    return <Loader />;
-  }
-
-  // const keyToUpdate = stateWebsite.keyName; // Отримуємо ключ з stateWebsite
-
   const handleSave = async () => {
-    console.log("Save");
-    // const updatedWebsites = {
-    //   id:
-    // };
-    
-    // console.log(updatedWebsites);
+    const arrayWebsites = Object.entries(websites).map(([_, project]) =>
+      Object.entries(project).map(([, website]) => website),
+    );
 
-    await saveProjectsToFirestore(test); // зберігати websites + stateWebsite
+    const flatWebsites = arrayWebsites.flat();
+
+    const updateWebsites = flatWebsites.reduce<Record<string, Website>>(
+      (acc, website) => {
+        if (website.id === id) {
+          acc[website.keyName] = {
+            ...stateWebsite,
+          };
+        } else {
+          acc[website.keyName] = {
+            ...website,
+          };
+        }
+        return acc;
+      },
+      {},
+    );
+
+    try {
+      if (!id) {
+        const newKeyName = stateWebsite.keyName;
+        await saveProjectsToFirestore({
+          ...updateWebsites,
+          [newKeyName]: {
+            ...stateWebsite,
+            id: uid,
+          },
+        });
+      } else {
+        await saveProjectsToFirestore(updateWebsites);
+      }
+    } catch (error) {
+      console.error("Error request: ", error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      if (id) {
+        const updatedWebsites: Record<string, Website> = Object.entries(
+          websites,
+        ).reduce((acc: Record<string, Website>, [, project]) => {
+          Object.entries(project).forEach(([websiteKey, website]) => {
+            if (website.id !== id) {
+              acc[websiteKey] = website;
+            }
+          });
+          return acc;
+        }, {});
+
+        await saveProjectsToFirestore(updatedWebsites);
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Error deleting website: ", error);
+    }
   };
 
   return (
-    <Layout breadcrumbs={BREADCRUMBS_WEBSITE}>
+    <Layout>
+      <Typography
+        variant="h5"
+        fontWeight={600}
+        color="rgb(55 152 210 / 98%)"
+        sx={{ mb: 2 }}
+        textAlign="center"
+      >
+        {stateWebsite.title || "Loading..."}
+      </Typography>
+
       <Stack gap={1}>
         <Main stateWebsite={stateWebsite} setStateWebsite={setStateWebsite} />
 
@@ -76,34 +128,62 @@ const WebSite = () => {
           setStateWebsite={setStateWebsite}
         />
 
-        <Accordion>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2-content"
-            id="panel2-header"
-          >
-            <Typography>Accordion 2</Typography>
-          </AccordionSummary>
-
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-
-        <Button
-          value="Save"
-          onClick={handleSave}
-          sx={{
-            width: "100%",
-            maxWidth: 300,
-            height: 56,
-            marginTop: 3,
-          }}
+        <HeaderImages
+          stateWebsite={stateWebsite}
+          setStateWebsite={setStateWebsite}
         />
+
+        <SocialsMedia
+          stateWebsite={stateWebsite}
+          setStateWebsite={setStateWebsite}
+        />
+
+        <Blogs stateWebsite={stateWebsite} setStateWebsite={setStateWebsite} />
+
+        <Locations
+          stateWebsite={stateWebsite}
+          setStateWebsite={setStateWebsite}
+        />
+
+        <OurPartners
+          stateWebsite={stateWebsite}
+          setStateWebsite={setStateWebsite}
+        />
+
+        <Doctors
+          stateWebsite={stateWebsite}
+          setStateWebsite={setStateWebsite}
+        />
+
+        <Stack
+          mt={4}
+          direction="row"
+          width="100%"
+          justifyContent="space-between"
+        >
+          <Button
+            value="Save"
+            onClick={handleSave}
+            disabled={!stateWebsite?.title}
+            sx={{
+              width: "100%",
+              maxWidth: 300,
+              height: 56,
+            }}
+          />
+
+          <Button
+            value="Delete"
+            onClick={handleDelete}
+            color="error"
+            variant="outlined"
+            sx={{
+              width: "100%",
+              maxWidth: 300,
+              height: 56,
+            }}
+          />
+        </Stack>
       </Stack>
     </Layout>
   );

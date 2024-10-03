@@ -15,7 +15,7 @@ const Card = ({ website }: Props) => {
   return (
     <Stack
       width="100%"
-      maxWidth={300}
+      maxWidth={403}
       gap={1}
       p={3}
       borderRadius={2}
@@ -32,7 +32,9 @@ const Card = ({ website }: Props) => {
       }}
       onClick={handleOpenCard}
     >
-      <Typography fontSize={20}>{website.title}</Typography>
+      <Typography fontSize={21} fontWeight={600} color="rgb(55 152 210 / 98%)">
+        {website.title}
+      </Typography>
 
       <Box borderBottom="1px solid #000" />
 

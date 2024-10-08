@@ -1,6 +1,6 @@
 import { IAuthorization } from "../types/login.types.ts";
 import { IRoles } from "../types/role.types.ts";
-import { IBlog, ILocation, Website } from "../types/websites.types.ts";
+import { IBlog, IDoctor, ILocation, Website } from "../types/websites.types.ts";
 
 export const DEFAULT_AUTHORIZATION: IAuthorization = {
   login: "",
@@ -54,7 +54,7 @@ export const DEFAULT_WEBSITE: Website = {
       open: true,
     },
   ],
-  ourPartners: [{ id: "", link: "", title: "", image: "" }],
+  ourPartners: [{ link: "", title: "", image: "" }],
   doctors: [
     {
       id: "",
@@ -87,4 +87,15 @@ export const DEFAULT_LOCATION: ILocation = {
   tel: "",
   googleMap: "",
   open: true,
+};
+
+export const DEFAULT_DOCTOR: IDoctor = {
+  image: "",
+  firstName: "",
+  lastName: "",
+  age: 0,
+  text: "",
+  title: "",
+  link: "",
+  id: "",
 };

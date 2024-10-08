@@ -21,7 +21,6 @@ export interface IOurPartner {
   link: string;
   title: string;
   image: string;
-  id: string;
 }
 
 export interface IDoctor {

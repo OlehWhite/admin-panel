@@ -1,46 +1,43 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Box, Stack, TextField, Typography } from "@mui/material";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import dayjs from "dayjs";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { PickerValidDate } from "@mui/x-date-pickers";
 
-import { DEFAULT_BLOG } from "../services/constants.ts";
-import { generateId } from "../services/utils.ts";
-import { IBlog, Project } from "../types/websites.types.ts";
+import { Box, Stack, TextField, Typography } from "@mui/material";
+
 import {
   useFindWebsite,
-  useGetBlog,
+  useGetDoctor,
   useGetWebsites,
 } from "../store/getData.ts";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+
+import { generateId } from "../services/utils.ts";
+import { DEFAULT_DOCTOR } from "../services/constants.ts";
 import { saveProjectsToFirestore } from "../store/updateProjects.ts";
 
 import emptyImag from "../assets/empty-img.png";
+import { IDoctor, Project } from "../types/websites.types.ts";
 
 import Layout from "../components/Layout.tsx";
 import Button from "../components/shared/Button.tsx";
-import ModalDeleteConfirmBlog from "../components/modals/ModalDeleteConfirmBlog.tsx";
+import ModalDeleteConfirmDoctor from "../components/modals/ModalDeleteConfirmDoctor.tsx";
 
-const Blog = () => {
+const Doctor = () => {
   const { id: uid } = generateId();
-  const { id, idBlog } = useParams();
+  const { id, idDoctor } = useParams();
   const navigate = useNavigate();
 
-  const { storeBlog } = useGetBlog();
+  const { storeDoctor } = useGetDoctor();
   const { websites } = useGetWebsites();
   const { stateWebsite } = useFindWebsite(websites, id!);
 
-  const [blog, setBlog] = useState<IBlog>(DEFAULT_BLOG);
+  const [doctor, setDoctor] = useState<IDoctor>(DEFAULT_DOCTOR);
   const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    if (idBlog) {
-      setBlog(storeBlog);
+    if (idDoctor) {
+      setDoctor(storeDoctor);
     } else {
-      setBlog((prevState) => ({
+      setDoctor((prevState) => ({
         ...prevState,
         id: uid,
       }));
@@ -64,22 +61,12 @@ const Blog = () => {
 
       const url = await getDownloadURL(storageRef);
 
-      setBlog((prevState) => ({
+      setDoctor((prevState) => ({
         ...prevState,
         image: url,
       }));
     } catch (error) {
       console.error("Error uploading image: ", error);
-    }
-  };
-
-  const handleDateChange = (date: dayjs.Dayjs | null) => {
-    if (date) {
-      const formattedDate = dayjs(date).format("MMMM D, YYYY");
-      setBlog((prevState) => ({
-        ...prevState,
-        date: formattedDate,
-      }));
     }
   };
 
@@ -106,12 +93,12 @@ const Blog = () => {
     const newKeyName = stateWebsite.keyName;
 
     try {
-      if (!idBlog) {
+      if (!idDoctor) {
         await saveProjectsToFirestore({
           ...updateWebsites,
           [newKeyName]: {
             ...stateWebsite,
-            blogs: [...stateWebsite.blogs, blog],
+            doctors: [...stateWebsite.doctors, doctor],
           },
         });
       } else {
@@ -119,12 +106,12 @@ const Blog = () => {
           ...updateWebsites,
           [newKeyName]: {
             ...stateWebsite,
-            blogs: [
-              ...stateWebsite?.blogs.map((oldBlog) => {
-                if (oldBlog.id === idBlog) {
-                  return blog;
+            doctors: [
+              ...stateWebsite?.doctors.map((oldDoctor) => {
+                if (oldDoctor.id === idDoctor) {
+                  return doctor;
                 } else {
-                  return oldBlog;
+                  return oldDoctor;
                 }
               }),
             ],
@@ -151,7 +138,7 @@ const Blog = () => {
       >
         {stateWebsite.title || "Loading..."}
         <Box component="span" sx={{ color: "#000" }}>
-          {" / Blog"}
+          {" / Doctor"}
         </Box>
       </Typography>
 
@@ -160,15 +147,16 @@ const Blog = () => {
         borderRadius={2}
         overflow="hidden"
         p={3}
+        gap={3}
       >
         <Stack direction="row" alignItems="center" gap={3}>
           <Box
             component="img"
-            src={blog?.image ? blog?.image : emptyImag}
-            alt={blog?.title}
+            src={doctor?.image ? doctor?.image : emptyImag}
+            alt={doctor?.title}
             sx={{
               width: "100%",
-              maxWidth: 500,
+              maxWidth: 360,
               height: 270,
               objectFit: "cover",
             }}
@@ -176,10 +164,10 @@ const Blog = () => {
 
           <Stack direction="column" gap={3.4} width="100%">
             <Button
-              value={blog?.image ? "Update photo" : "Add photo"}
+              value={doctor?.image ? "Update photo" : "Add photo"}
               color="info"
               onClick={() =>
-                document.getElementById(`file-input-${blog.id}`)?.click()
+                document.getElementById(`file-input-${doctor.id}`)?.click()
               }
               sx={{
                 height: 56,
@@ -188,108 +176,107 @@ const Blog = () => {
             />
 
             <input
-              id={`file-input-${blog.id}`}
+              id={`file-input-${doctor.id}`}
               type="file"
               accept="image/*"
               style={{ display: "none" }}
               onChange={(e) => handleFileChange(e)}
             />
 
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                label="Select a date"
-                value={(dayjs(blog.date) as unknown as PickerValidDate) || null}
-                onChange={handleDateChange}
-                sx={{
-                  backgroundColor: "#fff",
-                  width: 200,
+            <Stack direction="row" gap={3}>
+              <TextField
+                id="First name"
+                label="First Name"
+                type="text"
+                value={doctor?.firstName}
+                onChange={(e) => {
+                  setDoctor((prevState) => ({
+                    ...prevState,
+                    firstName: e.target.value,
+                  }));
                 }}
+                sx={{ backgroundColor: "#fff", width: 170 }}
               />
-            </LocalizationProvider>
+
+              <TextField
+                id="Last name"
+                label="Last Name"
+                type="text"
+                value={doctor?.lastName}
+                onChange={(e) => {
+                  setDoctor((prevState) => ({
+                    ...prevState,
+                    lastName: e.target.value,
+                  }));
+                }}
+                sx={{ backgroundColor: "#fff", width: 250 }}
+              />
+
+              <TextField
+                id="Age"
+                label="Age"
+                type="number"
+                value={doctor?.age}
+                onChange={(e) => {
+                  setDoctor((prevState) => ({
+                    ...prevState,
+                    age: Number(e.target.value),
+                  }));
+                }}
+                onFocus={(e) => e.target.select()}
+                sx={{ backgroundColor: "#fff", width: 100 }}
+              />
+
+              <TextField
+                id="Link"
+                label="Social media (link)"
+                type="text"
+                value={doctor?.link}
+                onChange={(e) => {
+                  setDoctor((prevState) => ({
+                    ...prevState,
+                    link: e.target.value,
+                  }));
+                }}
+                sx={{ backgroundColor: "#fff", width: "100%", maxWidth: 450 }}
+              />
+            </Stack>
 
             <TextField
-              id="title"
+              id="Title"
               label="Title"
               type="text"
-              value={blog?.title}
+              value={doctor?.title}
               multiline
               rows={3}
               onChange={(e) => {
-                setBlog((prevState) => ({
+                setDoctor((prevState) => ({
                   ...prevState,
                   title: e.target.value,
                 }));
               }}
-              sx={{ backgroundColor: "#fff", height: 100 }}
+              sx={{ backgroundColor: "#fff", width: "100%", height: 100 }}
             />
           </Stack>
         </Stack>
 
-        <Stack gap={3} mt={3}>
-          {blog?.text.map((textItem, index) => (
-            <Stack key={index} direction="row" alignItems="center" spacing={1}>
-              <TextField
-                label="Paragraph"
-                type="text"
-                value={textItem}
-                multiline
-                rows={4}
-                onChange={(e) => {
-                  const updatedText = [...blog.text];
-                  updatedText[index] = e.target.value;
-                  setBlog((prevState) => ({
-                    ...prevState,
-                    text: updatedText,
-                  }));
-                }}
-                sx={{
-                  backgroundColor: "#fff",
-                  flex: 1,
-
-                  "& .MuiInputBase-root": {
-                    height: 130,
-                    alignItems: "flex-start",
-                  },
-                }}
-              />
-
-              <Button
-                value="Delete pharagraph"
-                color="error"
-                onClick={() => {
-                  const updatedText = blog.text.filter((_, i) => i !== index);
-                  setBlog((prevState) => ({
-                    ...prevState,
-                    text: updatedText,
-                  }));
-                }}
-                sx={{
-                  height: 56,
-                }}
-              />
-            </Stack>
-          ))}
-
-          <Stack direction="row" justifyContent="center">
-            <Button
-              variant="contained"
-              color="primary"
-              value="Add new pharagraph"
-              onClick={() => {
-                setBlog((prevState) => ({
-                  ...prevState,
-                  text: [...prevState.text, "New Paragraph"],
-                }));
-              }}
-              sx={{
-                width: "100%",
-                maxWidth: 300,
-                height: 56,
-              }}
-            />
-          </Stack>
-        </Stack>
+        <TextField
+          id="Text"
+          label="Text"
+          type="text"
+          value={doctor?.text}
+          multiline
+          rows={3}
+          onChange={(e) => {
+            setDoctor((prevState) => ({
+              ...prevState,
+              text: e.target.value,
+            }));
+          }}
+          sx={{ backgroundColor: "#fff", width: "100%", height: 100 }}
+        />
       </Stack>
+
       <Stack mt={4} direction="row" width="100%" justifyContent="space-between">
         <Button
           value="Save"
@@ -301,7 +288,7 @@ const Blog = () => {
           }}
         />
 
-        {idBlog && (
+        {idDoctor && (
           <Button
             value="Delete this blog"
             onClick={handleOpenModal}
@@ -316,7 +303,7 @@ const Blog = () => {
         )}
       </Stack>
 
-      <ModalDeleteConfirmBlog
+      <ModalDeleteConfirmDoctor
         stateWebsite={stateWebsite}
         open={open}
         setOpen={setOpen}
@@ -326,4 +313,4 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+export default Doctor;

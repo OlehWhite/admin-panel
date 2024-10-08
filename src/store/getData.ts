@@ -81,3 +81,12 @@ export const useGetLocation = () => {
 
   return { storeLocation };
 };
+
+export const useGetDoctor = () => {
+  const storeDoctorString = localStorage.getItem("doctor");
+  const storeDoctor = storeDoctorString
+    ? JSON.parse(storeDoctorString)
+    : DEFAULT_LOCATION;
+
+  return { storeDoctor };
+};

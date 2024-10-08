@@ -142,7 +142,7 @@ const HeaderImages = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
         </Stack>
 
         <Stack direction="column" flexWrap="wrap" gap={3.6}>
-          {stateWebsite?.headerImages.map((item, index) => (
+          {stateWebsite?.headerImages.reverse().map((item, index) => (
             <Stack
               key={index}
               direction="row"

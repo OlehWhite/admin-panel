@@ -37,7 +37,7 @@ const Location = () => {
 
   const [location, setLocation] = useState<ILocation>(DEFAULT_LOCATION);
   const [open, setOpen] = useState<boolean>(false);
-  console.log(location.open);
+
   useEffect(() => {
     if (idLocation) {
       setLocation(storeLocation);

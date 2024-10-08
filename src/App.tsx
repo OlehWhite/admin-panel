@@ -11,6 +11,7 @@ import Login from "./pages/Login.tsx";
 import Profile from "./pages/Profile.tsx";
 import WebSite from "./pages/WebSite.tsx";
 import Location from "./pages/Location.tsx";
+import Doctor from "./pages/Doctor.tsx";
 
 function App() {
   const theme = getTheme();
@@ -30,6 +31,8 @@ function App() {
           path="/website/:id/locations/:idLocation"
           element={<Location />}
         />
+        <Route path="/website/:id/doctors" element={<Doctor />} />
+        <Route path="/website/:id/doctors/:idDoctor" element={<Doctor />} />
         <Route path="/website/" element={<WebSite />} />
         <Route path="/login" element={<Login />} />
       </Routes>

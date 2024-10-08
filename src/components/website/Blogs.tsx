@@ -8,7 +8,10 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import emptyImag from "../../assets/empty-img.png";
+
 import { IBlog, IWebsiteState } from "../../types/websites.types.ts";
+
 import Button from "../shared/Button.tsx";
 
 const Blogs = ({ stateWebsite }: IWebsiteState) => {
@@ -73,7 +76,6 @@ const Blogs = ({ stateWebsite }: IWebsiteState) => {
               sx={{
                 cursor: "pointer",
                 transition: ".5s",
-
                 ":hover": {
                   transition: ".5s",
                   backgroundColor: "#a6eaf37a",
@@ -90,14 +92,24 @@ const Blogs = ({ stateWebsite }: IWebsiteState) => {
             >
               <Stack
                 component="img"
-                src={blog.image}
+                src={blog.image ? blog.image : emptyImag}
                 sx={{
                   width: 250,
+                  height: 150,
                   objectFit: "cover",
                 }}
               />
+
               <Stack gap={2} justifyContent="center">
-                <Typography>{blog.title}</Typography>
+                <Typography>
+                  {blog.title.length > 150
+                    ? blog.title.slice(0, 150) + "..."
+                    : blog.title}
+                </Typography>
+
+                <Typography fontWeight={400} fontSize={15} color="#999999">
+                  [{blog.text.length}] Paragraphs
+                </Typography>
 
                 <Typography fontWeight={300} fontSize={14}>
                   {blog.date}

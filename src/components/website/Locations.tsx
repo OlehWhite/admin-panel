@@ -59,7 +59,7 @@ const Locations = ({ stateWebsite }: IWebsiteState) => {
       <AccordionDetails>
         <Stack direction="row" justifyContent="center">
           <Button
-            value="Add new block"
+            value="Add new location"
             onClick={handleAddNewLocation}
             sx={{
               width: "100%",

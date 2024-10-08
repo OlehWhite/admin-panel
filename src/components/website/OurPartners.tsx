@@ -9,7 +9,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { IWebsiteState } from "../../types/websites.types.ts";
 
 const OurPartners = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
-  console.log(stateWebsite, setStateWebsite);
+  // console.log(stateWebsite, setStateWebsite);
   return (
     <Accordion>
       <AccordionSummary

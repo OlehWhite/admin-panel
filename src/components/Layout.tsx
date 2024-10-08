@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Avatar, Stack, Box, Typography } from "@mui/material";
@@ -17,6 +17,10 @@ interface Props {
 const Layout = ({ children }: Props) => {
   const navigate = useNavigate();
   const user = getCurrentUser();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   const handleLogOut = async () => {
     try {

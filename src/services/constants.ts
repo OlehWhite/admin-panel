@@ -1,5 +1,6 @@
 import { IAuthorization } from "../types/login.types.ts";
 import { IRoles } from "../types/role.types.ts";
+import { IBlog, ILocation, Website } from "../types/websites.types.ts";
 
 export const DEFAULT_AUTHORIZATION: IAuthorization = {
   login: "",
@@ -10,13 +11,16 @@ export const DEFAULT_AUTHORIZATION: IAuthorization = {
 export const ROLES: IRoles = {
   admin: "Admin",
   superAdmin: "Super admin",
-  manager: "Manager",
 };
 
-export const DEFAULT_WEBSITE = {
+export const DEFAULT_WEBSITE: Website = {
   id: "",
   keyName: "",
   title: "",
+  address: "",
+  tel: "",
+  googleMaps: "",
+  email: "",
   headerImages: [{ image: "", title: "", text: "" }],
   schedule: [
     { day: "Sunday", open: "", close: "" },
@@ -27,9 +31,6 @@ export const DEFAULT_WEBSITE = {
     { day: "Friday", open: "", close: "" },
     { day: "Saturday", open: "", close: "" },
   ],
-  address: "",
-  tel: "",
-  googleMaps: "",
   links: [{ link: "", title: "" }],
   blogs: [
     {
@@ -42,20 +43,21 @@ export const DEFAULT_WEBSITE = {
   ],
   locations: [
     {
+      id: "",
       image: "",
       link: "",
       address: "",
       email: "",
-      text: "",
       title: "",
       tel: "",
       googleMap: "",
+      open: true,
     },
   ],
-  email: "",
-  ourPartners: [{ link: "", title: "", image: "" }],
+  ourPartners: [{ id: "", link: "", title: "", image: "" }],
   doctors: [
     {
+      id: "",
       image: "",
       firstName: "",
       lastName: "",
@@ -67,10 +69,22 @@ export const DEFAULT_WEBSITE = {
   ],
 };
 
-export const DEFAULT_BLOG = {
+export const DEFAULT_BLOG: IBlog = {
   image: "",
   title: "",
   text: [],
   date: "",
   id: "",
+};
+
+export const DEFAULT_LOCATION: ILocation = {
+  id: "",
+  image: "",
+  link: "",
+  address: "",
+  email: "",
+  title: "",
+  tel: "",
+  googleMap: "",
+  open: true,
 };

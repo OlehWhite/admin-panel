@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react";
 import { db } from "../services/firebase.ts";
 import { collection, onSnapshot } from "firebase/firestore";
-import { WebsitesCollection } from "../types/websites.types.ts";
-import { DEFAULT_BLOG } from "../services/constants.ts";
+import {
+  Project,
+  Website,
+  WebsitesCollection,
+} from "../types/websites.types.ts";
+import {
+  DEFAULT_BLOG,
+  DEFAULT_LOCATION,
+  DEFAULT_WEBSITE,
+} from "../services/constants.ts";
 
 export const useGetWebsites = () => {
   const [websites, setWebsites] = useState<WebsitesCollection | {}>({});
@@ -25,6 +33,30 @@ export const useGetWebsites = () => {
   return { websites };
 };
 
+export const useFindWebsite = (
+  websites: { [key: string]: Project } | null,
+  id: string,
+) => {
+  const [stateWebsite, setStateWebsite] = useState<Website>(DEFAULT_WEBSITE);
+
+  useEffect(() => {
+    if (websites) {
+      const website = Object.entries(websites).reduce((acc, [, project]) => {
+        const foundWebsite = Object.entries(project).find(
+          ([, website]) => website.id === id,
+        );
+        return foundWebsite ? foundWebsite[1] : acc;
+      }, DEFAULT_WEBSITE as Website);
+
+      if (website) {
+        setStateWebsite(website);
+      }
+    }
+  }, [websites, id]);
+
+  return { stateWebsite };
+};
+
 export const user = localStorage.getItem("user");
 
 export const getCurrentUser = () => {
@@ -39,4 +71,13 @@ export const useGetBlog = () => {
     : DEFAULT_BLOG;
 
   return { storeBlog };
+};
+
+export const useGetLocation = () => {
+  const storeLocationString = localStorage.getItem("location");
+  const storeLocation = storeLocationString
+    ? JSON.parse(storeLocationString)
+    : DEFAULT_LOCATION;
+
+  return { storeLocation };
 };

@@ -67,6 +67,22 @@ export const getTheme = () => {
           },
         },
       },
+      MuiSwitch: {
+        styleOverrides: {
+          switchBase: {
+            color: "#f50057",
+            "&.Mui-checked": {
+              color: "#4ca8c4",
+            },
+            "&.Mui-checked + .MuiSwitch-track": {
+              backgroundColor: "#4ca8c4",
+            },
+          },
+          track: {
+            backgroundColor: "#f50057",
+          },
+        },
+      },
     },
   });
 };

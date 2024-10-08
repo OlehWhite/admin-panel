@@ -9,8 +9,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { IWebsiteState } from "../../types/websites.types.ts";
 
 const Doctors = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
-  console.log(stateWebsite, setStateWebsite);
-
   return (
     <Accordion>
       <AccordionSummary

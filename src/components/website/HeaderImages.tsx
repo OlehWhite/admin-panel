@@ -128,6 +128,19 @@ const HeaderImages = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
       <Box borderBottom="1px solid #BEBEBE" mb={2} />
 
       <AccordionDetails>
+        <Stack direction="row" justifyContent="center">
+          <Button
+            value="Add new block"
+            onClick={handleAddNewBlock}
+            sx={{
+              width: "100%",
+              maxWidth: 300,
+              height: 56,
+              mb: 3,
+            }}
+          />
+        </Stack>
+
         <Stack direction="column" flexWrap="wrap" gap={3.6}>
           {stateWebsite?.headerImages.map((item, index) => (
             <Stack
@@ -210,19 +223,6 @@ const HeaderImages = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
               </Stack>
             </Stack>
           ))}
-        </Stack>
-
-        <Stack direction="row" justifyContent="center">
-          <Button
-            value="Add new block"
-            onClick={handleAddNewBlock}
-            sx={{
-              width: "100%",
-              maxWidth: 300,
-              height: 56,
-              mt: 3,
-            }}
-          />
         </Stack>
       </AccordionDetails>
     </Accordion>

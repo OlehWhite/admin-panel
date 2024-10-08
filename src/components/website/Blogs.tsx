@@ -15,22 +15,22 @@ const Blogs = ({ stateWebsite }: IWebsiteState) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const handleAddNewBlock = () => {
+  const handleAddNewBlog = () => {
     try {
       navigate(`/website/${id}/blogs`);
     } catch (error) {
-      console.error("Can`t to create a new block:", error);
+      console.error("Can`t to create a new blog:", error);
     }
   };
 
-  const handleOpenBlock = (block: IBlog, idBlock: string) => {
+  const handleOpenBlog = (blog: IBlog, idBlog: string) => {
     try {
-      if (block) {
-        localStorage.setItem("blog", JSON.stringify(block));
+      if (blog) {
+        localStorage.setItem("blog", JSON.stringify(blog));
       }
-      navigate(`/website/${id}/blogs/${idBlock}`);
+      navigate(`/website/${id}/blogs/${idBlog}`);
     } catch (error) {
-      console.error("Can`t to open the block:", error);
+      console.error("Can`t to open the blog:", error);
     }
   };
 
@@ -55,8 +55,8 @@ const Blogs = ({ stateWebsite }: IWebsiteState) => {
       <AccordionDetails>
         <Stack direction="row" justifyContent="center">
           <Button
-            value="Add new block"
-            onClick={handleAddNewBlock}
+            value="Add new blog"
+            onClick={handleAddNewBlog}
             sx={{
               width: "100%",
               maxWidth: 300,
@@ -67,9 +67,9 @@ const Blogs = ({ stateWebsite }: IWebsiteState) => {
         </Stack>
 
         <Stack flexWrap="wrap" width="100%" gap={3.6}>
-          {stateWebsite?.blogs.reverse().map((block) => (
+          {stateWebsite?.blogs.reverse().map((blog) => (
             <Stack
-              key={block.id}
+              key={blog.id}
               sx={{
                 cursor: "pointer",
                 transition: ".5s",
@@ -86,21 +86,21 @@ const Blogs = ({ stateWebsite }: IWebsiteState) => {
               borderRadius={2}
               overflow="hidden"
               height={150}
-              onClick={() => handleOpenBlock(block, block.id)}
+              onClick={() => handleOpenBlog(blog, blog.id)}
             >
               <Stack
                 component="img"
-                src={block.image}
+                src={blog.image}
                 sx={{
                   width: 250,
                   objectFit: "cover",
                 }}
               />
               <Stack gap={2} justifyContent="center">
-                <Typography>{block.title}</Typography>
+                <Typography>{blog.title}</Typography>
 
                 <Typography fontWeight={300} fontSize={14}>
-                  {block.date}
+                  {blog.date}
                 </Typography>
               </Stack>
             </Stack>

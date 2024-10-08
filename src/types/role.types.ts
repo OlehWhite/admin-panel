@@ -1,7 +1,6 @@
 export interface IRoles {
   superAdmin: string;
   admin: string;
-  manager: string;
 }
 
 export interface IAccess {

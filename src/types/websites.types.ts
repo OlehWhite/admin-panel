@@ -21,6 +21,7 @@ export interface IOurPartner {
   link: string;
   title: string;
   image: string;
+  id: string;
 }
 
 export interface IDoctor {
@@ -31,6 +32,7 @@ export interface IDoctor {
   text: string;
   title: string;
   link: string;
+  id: string;
 }
 
 export interface ILink {
@@ -55,10 +57,11 @@ export interface ILocation {
   link: string;
   address: string;
   email: string;
-  text: string;
   title: string;
   tel: string;
   googleMap: string;
+  id: string;
+  open: boolean;
 }
 
 export interface IBlog {

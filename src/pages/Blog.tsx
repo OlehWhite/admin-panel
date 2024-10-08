@@ -8,27 +8,33 @@ import dayjs from "dayjs";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { PickerValidDate } from "@mui/x-date-pickers";
 
-import { DEFAULT_BLOG, DEFAULT_WEBSITE } from "../services/constants.ts";
+import { DEFAULT_BLOG } from "../services/constants.ts";
 import { generateId } from "../services/utils.ts";
-import { IBlog, Project, Website } from "../types/websites.types.ts";
-import { useGetBlog, useGetWebsites } from "../store/getData.ts";
+import { IBlog, Project } from "../types/websites.types.ts";
+import {
+  useFindWebsite,
+  useGetBlog,
+  useGetWebsites,
+} from "../store/getData.ts";
 import { saveProjectsToFirestore } from "../store/updateProjects.ts";
 
 import emptyImag from "../assets/empty-img.png";
 
 import Layout from "../components/Layout.tsx";
 import Button from "../components/shared/Button.tsx";
+import ModalDeleteConfirmBlog from "../components/modals/ModalDeleteConfirmBlog.tsx";
 
 const Blog = () => {
   const { id: uid } = generateId();
   const { id, idBlog } = useParams();
   const navigate = useNavigate();
 
-  const { websites } = useGetWebsites();
   const { storeBlog } = useGetBlog();
+  const { websites } = useGetWebsites();
+  const { stateWebsite } = useFindWebsite(websites, id!);
 
-  const [stateWebsite, setStateWebsite] = useState<Website>(DEFAULT_WEBSITE);
   const [blog, setBlog] = useState<IBlog>(DEFAULT_BLOG);
+  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (idBlog) {
@@ -40,21 +46,6 @@ const Blog = () => {
       }));
     }
   }, []);
-
-  useEffect(() => {
-    if (websites) {
-      const website = Object.entries(websites).reduce((acc, [, project]) => {
-        const foundWebsite = Object.entries(project).find(
-          ([, website]) => website.id === id,
-        );
-        return foundWebsite ? foundWebsite[1] : acc;
-      }, DEFAULT_WEBSITE as Website);
-
-      if (website) {
-        setStateWebsite(website);
-      }
-    }
-  }, [websites, id]);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -147,34 +138,7 @@ const Blog = () => {
     }
   };
 
-  const handleDelete = async () => {
-    const arrayWebsites = Object.entries(websites).map(([_, project]) =>
-      Object.entries(project).map(([, website]) => website),
-    );
-
-    const flatWebsites = arrayWebsites.flat();
-
-    const updateWebsites: Project = flatWebsites.reduce((acc, website) => {
-      if (website.id === id) {
-        acc[website.keyName] = {
-          ...stateWebsite,
-          blogs: stateWebsite.blogs.filter((oldBlog) => oldBlog.id !== idBlog),
-        };
-      } else {
-        acc[website.keyName] = {
-          ...website,
-        };
-      }
-      return acc;
-    }, {} as Project);
-
-    try {
-      await saveProjectsToFirestore(updateWebsites);
-      navigate(`/website/${id}`);
-    } catch (error) {
-      console.error("Error deleting blog: ", error);
-    }
-  };
+  const handleOpenModal = () => setOpen(true);
 
   return (
     <Layout>
@@ -186,6 +150,9 @@ const Blog = () => {
         textAlign="center"
       >
         {stateWebsite.title || "Loading..."}
+        <Box component="span" sx={{ color: "#000" }}>
+          {" / Blog"}
+        </Box>
       </Typography>
 
       <Stack
@@ -323,7 +290,6 @@ const Blog = () => {
           </Stack>
         </Stack>
       </Stack>
-
       <Stack mt={4} direction="row" width="100%" justifyContent="space-between">
         <Button
           value="Save"
@@ -338,7 +304,7 @@ const Blog = () => {
         {idBlog && (
           <Button
             value="Delete this blog"
-            onClick={handleDelete}
+            onClick={handleOpenModal}
             color="error"
             variant="outlined"
             sx={{
@@ -349,6 +315,12 @@ const Blog = () => {
           />
         )}
       </Stack>
+      <ModalDeleteConfirmBlog
+        stateWebsite={stateWebsite}
+        open={open}
+        setOpen={setOpen}
+        websites={websites}
+      />
     </Layout>
   );
 };

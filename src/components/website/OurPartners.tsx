@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react";
 import {
   Accordion,
   AccordionDetails,
@@ -8,15 +9,14 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { IWebsiteState } from "../../types/websites.types.ts";
-import Button from "../shared/Button.tsx";
-import { ChangeEvent, useEffect } from "react";
-import emptyImag from "../../assets/empty-img.png";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
-const OurPartners = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
-  // console.log(stateWebsite, setStateWebsite);
+import { IWebsiteState } from "../../types/websites.types.ts";
+import emptyImag from "../../assets/empty-img.png";
 
+import Button from "../shared/Button.tsx";
+
+const OurPartners = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
   const handleAddNewPartner = () => {
     setStateWebsite((prevState) => ({
       ...prevState,

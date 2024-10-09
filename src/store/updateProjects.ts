@@ -1,12 +1,15 @@
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../services/firebase.ts";
+import { toast } from "react-toastify";
+import { errorParams, successParams } from "../services/toastParams.ts";
 
 export const saveProjectsToFirestore = async (projectsData: any) => {
   try {
     const docRef = doc(db, "projects", "j2W4Y5MrUiKzUvfGfgiO");
     await setDoc(docRef, projectsData);
-    console.log("Project data successfully saved!");
+
+    toast.success("Project data successfully saved!", successParams);
   } catch (error) {
-    console.error("Error saving project data:", error);
+    toast.error(`Error saving project data: ${error}`, errorParams);
   }
 };

@@ -78,6 +78,8 @@ const WebSite = () => {
             id: uid,
           },
         });
+
+        navigate("/");
       } else {
         await saveProjectsToFirestore(updateWebsites);
       }

@@ -185,7 +185,6 @@ const Doctor = () => {
 
             <Stack direction="row" gap={3}>
               <TextField
-                id="First name"
                 label="First Name"
                 type="text"
                 value={doctor?.firstName}
@@ -199,7 +198,6 @@ const Doctor = () => {
               />
 
               <TextField
-                id="Last name"
                 label="Last Name"
                 type="text"
                 value={doctor?.lastName}
@@ -213,7 +211,6 @@ const Doctor = () => {
               />
 
               <TextField
-                id="Age"
                 label="Age"
                 type="number"
                 value={doctor?.age}
@@ -228,7 +225,6 @@ const Doctor = () => {
               />
 
               <TextField
-                id="Link"
                 label="Social media (link)"
                 type="text"
                 value={doctor?.link}
@@ -243,7 +239,6 @@ const Doctor = () => {
             </Stack>
 
             <TextField
-              id="Title"
               label="Title"
               type="text"
               value={doctor?.title}
@@ -261,19 +256,18 @@ const Doctor = () => {
         </Stack>
 
         <TextField
-          id="Text"
           label="Text"
           type="text"
           value={doctor?.text}
           multiline
-          rows={3}
+          maxRows={10}
           onChange={(e) => {
             setDoctor((prevState) => ({
               ...prevState,
               text: e.target.value,
             }));
           }}
-          sx={{ backgroundColor: "#fff", width: "100%", height: 100 }}
+          sx={{ backgroundColor: "#fff", width: "100%" }}
         />
       </Stack>
 

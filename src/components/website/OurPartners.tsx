@@ -141,79 +141,79 @@ const OurPartners = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
         </Stack>
 
         <Stack flexWrap="wrap" width="100%" gap={3.6}>
-          {stateWebsite?.ourPartners.reverse().map((item, index) => (
-            <Stack
-              key={index}
-              direction="row"
-              alignItems="center"
-              gap={3}
-              boxShadow="0px 0px 13px 0px #000000a8"
-              borderRadius={2}
-              overflow="hidden"
-            >
-              <Box
-                component="img"
-                src={item.image ? item.image : emptyImag}
-                alt={item.image + index}
-                title={item.image + index}
-                sx={{
-                  width: "auto",
-                  maxHeight: 270,
-                  objectFit: "cover",
-                }}
-              />
-
-              <Stack gap={2}>
-                <Button
-                  value={item.image ? "Update photo" : "Add photo"}
-                  color="info"
-                  onClick={() =>
-                    document
-                      .getElementById(`file-input-${item.image + 1}`)
-                      ?.click()
-                  }
-                />
-
-                <input
-                  id={`file-input-${item.image + 1}`}
-                  type="file"
-                  accept="image/*"
-                  style={{ display: "none" }}
-                  onChange={(e) => handleFileChange(e, index)}
-                />
-
-                <Button
-                  value="Remove this partner"
-                  color="error"
-                  onClick={() => handleRemovePartner(index)}
-                />
-              </Stack>
-
-              <Stack width="100%" maxWidth={720} gap={3}>
-                <TextField
-                  id="title"
-                  label="Title"
-                  type="text"
-                  value={item.title}
-                  onChange={(e) => handleChangeTitle(e, index)}
+          {stateWebsite?.ourPartners
+            .map((item, index) => (
+              <Stack
+                key={index}
+                direction="row"
+                alignItems="center"
+                gap={3}
+                boxShadow="0px 0px 13px 0px #000000a8"
+                borderRadius={2}
+                overflow="hidden"
+              >
+                <Box
+                  component="img"
+                  src={item.image ? item.image : emptyImag}
+                  alt={item.image + index}
+                  title={item.image + index}
                   sx={{
-                    backgroundColor: "#fff",
+                    width: 330,
+                    objectFit: "cover",
+                    p: 1,
                   }}
                 />
 
-                <TextField
-                  id="link"
-                  label="Link"
-                  type="url"
-                  value={item.link}
-                  onChange={(e) => handleChangeLink(e, index)}
-                  sx={{
-                    backgroundColor: "#fff",
-                  }}
-                />
+                <Stack gap={2}>
+                  <Button
+                    value={item.image ? "Update photo" : "Add photo"}
+                    color="info"
+                    onClick={() =>
+                      document
+                        .getElementById(`file-input-${item.image + 1}`)
+                        ?.click()
+                    }
+                  />
+
+                  <input
+                    id={`file-input-${item.image + 1}`}
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={(e) => handleFileChange(e, index)}
+                  />
+
+                  <Button
+                    value="Remove this partner"
+                    color="error"
+                    onClick={() => handleRemovePartner(index)}
+                  />
+                </Stack>
+
+                <Stack width="100%" maxWidth={720} gap={3}>
+                  <TextField
+                    label="Title"
+                    type="text"
+                    value={item.title}
+                    onChange={(e) => handleChangeTitle(e, index)}
+                    sx={{
+                      backgroundColor: "#fff",
+                    }}
+                  />
+
+                  <TextField
+                    label="Link"
+                    type="url"
+                    value={item.link}
+                    onChange={(e) => handleChangeLink(e, index)}
+                    sx={{
+                      backgroundColor: "#fff",
+                    }}
+                  />
+                </Stack>
               </Stack>
-            </Stack>
-          ))}
+            ))
+            .reverse()}
         </Stack>
       </AccordionDetails>
     </Accordion>

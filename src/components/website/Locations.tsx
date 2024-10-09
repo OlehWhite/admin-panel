@@ -71,49 +71,51 @@ const Locations = ({ stateWebsite }: IWebsiteState) => {
         </Stack>
 
         <Stack flexWrap="wrap" width="100%" gap={3.6}>
-          {stateWebsite?.locations.reverse().map((location) => (
-            <Stack
-              key={location.id}
-              sx={{
-                cursor: "pointer",
-                transition: ".5s",
-
-                ":hover": {
-                  transition: ".5s",
-                  backgroundColor: "#a6eaf37a",
-                },
-              }}
-              direction="row"
-              flexWrap="wrap"
-              gap={3}
-              boxShadow="0px 0px 13px 0px #000000a8;"
-              borderRadius={2}
-              overflow="hidden"
-              height={150}
-              onClick={() => handleOpenLocation(location, location.id)}
-            >
+          {stateWebsite?.locations
+            .map((location) => (
               <Stack
-                component="img"
-                src={location.open ? openImage : openingSoonImage}
+                key={location.id}
                 sx={{
-                  width: 250,
+                  cursor: "pointer",
+                  transition: ".5s",
+
+                  ":hover": {
+                    transition: ".5s",
+                    backgroundColor: "#a6eaf37a",
+                  },
                 }}
-              />
-              <Stack gap={1} justifyContent="center">
-                <Typography color="#3498db" fontSize={20}>
-                  {location.title}
-                </Typography>
+                direction="row"
+                flexWrap="wrap"
+                gap={3}
+                boxShadow="0px 0px 13px 0px #000000a8;"
+                borderRadius={2}
+                overflow="hidden"
+                height={150}
+                onClick={() => handleOpenLocation(location, location.id)}
+              >
+                <Stack
+                  component="img"
+                  src={location.open ? openImage : openingSoonImage}
+                  sx={{
+                    width: 250,
+                  }}
+                />
+                <Stack gap={1} justifyContent="center">
+                  <Typography color="#3498db" fontSize={20}>
+                    {location.title}
+                  </Typography>
 
-                <Typography fontWeight={300} fontStyle="italic">
-                  {location.address}
-                </Typography>
+                  <Typography fontWeight={300} fontStyle="italic">
+                    {location.address}
+                  </Typography>
 
-                <Typography color="#959595">{location.email}</Typography>
+                  <Typography color="#959595">{location.email}</Typography>
 
-                <Typography color="#959595">{location.tel}</Typography>
+                  <Typography color="#959595">{location.tel}</Typography>
+                </Stack>
               </Stack>
-            </Stack>
-          ))}
+            ))
+            .reverse()}
         </Stack>
       </AccordionDetails>
     </Accordion>

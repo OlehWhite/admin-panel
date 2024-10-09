@@ -70,53 +70,55 @@ const Blogs = ({ stateWebsite }: IWebsiteState) => {
         </Stack>
 
         <Stack flexWrap="wrap" width="100%" gap={3.6}>
-          {stateWebsite?.blogs.reverse().map((blog) => (
-            <Stack
-              key={blog.id}
-              sx={{
-                cursor: "pointer",
-                transition: ".5s",
-                ":hover": {
-                  transition: ".5s",
-                  backgroundColor: "#a6eaf37a",
-                },
-              }}
-              direction="row"
-              flexWrap="wrap"
-              gap={3}
-              boxShadow="0px 0px 13px 0px #000000a8;"
-              borderRadius={2}
-              overflow="hidden"
-              height={150}
-              onClick={() => handleOpenBlog(blog, blog.id)}
-            >
+          {stateWebsite?.blogs
+            .map((blog) => (
               <Stack
-                component="img"
-                src={blog.image ? blog.image : emptyImag}
+                key={blog.id}
                 sx={{
-                  width: 250,
-                  height: 150,
-                  objectFit: "cover",
+                  cursor: "pointer",
+                  transition: ".5s",
+                  ":hover": {
+                    transition: ".5s",
+                    backgroundColor: "#a6eaf37a",
+                  },
                 }}
-              />
+                direction="row"
+                flexWrap="wrap"
+                gap={3}
+                boxShadow="0px 0px 13px 0px #000000a8;"
+                borderRadius={2}
+                overflow="hidden"
+                height={150}
+                onClick={() => handleOpenBlog(blog, blog.id)}
+              >
+                <Stack
+                  component="img"
+                  src={blog.image ? blog.image : emptyImag}
+                  sx={{
+                    width: 250,
+                    height: 150,
+                    objectFit: "cover",
+                  }}
+                />
 
-              <Stack gap={2} justifyContent="center">
-                <Typography>
-                  {blog.title.length > 150
-                    ? blog.title.slice(0, 150) + "..."
-                    : blog.title}
-                </Typography>
+                <Stack gap={2} justifyContent="center">
+                  <Typography>
+                    {blog.title.length > 150
+                      ? blog.title.slice(0, 150) + "..."
+                      : blog.title}
+                  </Typography>
 
-                <Typography fontWeight={400} fontSize={15} color="#999999">
-                  [{blog.text.length}] Paragraphs
-                </Typography>
+                  <Typography fontWeight={400} fontSize={15} color="#999999">
+                    [{blog.text.length}] Paragraphs
+                  </Typography>
 
-                <Typography fontWeight={300} fontSize={14}>
-                  {blog.date}
-                </Typography>
+                  <Typography fontWeight={300} fontSize={14}>
+                    {blog.date}
+                  </Typography>
+                </Stack>
               </Stack>
-            </Stack>
-          ))}
+            ))
+            .reverse()}
         </Stack>
       </AccordionDetails>
     </Accordion>

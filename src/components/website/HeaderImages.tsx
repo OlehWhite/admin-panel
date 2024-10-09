@@ -142,87 +142,87 @@ const HeaderImages = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
         </Stack>
 
         <Stack direction="column" flexWrap="wrap" gap={3.6}>
-          {stateWebsite?.headerImages.reverse().map((item, index) => (
-            <Stack
-              key={index}
-              direction="row"
-              alignItems="center"
-              gap={3}
-              boxShadow="0px 0px 13px 0px #000000a8"
-              borderRadius={2}
-              overflow="hidden"
-            >
-              <Box
-                component="img"
-                src={item.image ? item.image : emptyImag}
-                alt={item.image + index}
-                title={item.image + index}
-                sx={{
-                  width: "100%",
-                  maxWidth: 500,
-                  height: 270,
-                  objectFit: "cover",
-                }}
-              />
-
-              <Stack gap={2}>
-                <Button
-                  value={item.image ? "Update photo" : "Add photo"}
-                  color="info"
-                  onClick={() =>
-                    document
-                      .getElementById(`file-input-${item.image + 1}`)
-                      ?.click()
-                  }
-                />
-
-                <input
-                  id={`file-input-${item.image + 1}`}
-                  type="file"
-                  accept="image/*"
-                  style={{ display: "none" }}
-                  onChange={(e) => handleFileChange(e, index)}
-                />
-
-                <Button
-                  value="Remove this block"
-                  color="error"
-                  onClick={() => handleRemoveBlock(index)}
-                />
-              </Stack>
-
-              <Stack width="100%" maxWidth={640} gap={3}>
-                <TextField
-                  id="title"
-                  label="Title"
-                  type="text"
-                  value={item.title}
-                  onChange={(e) => handleChangeTitle(e, index)}
+          {stateWebsite?.headerImages
+            .map((item, index) => (
+              <Stack
+                key={index}
+                direction="row"
+                alignItems="center"
+                gap={3}
+                boxShadow="0px 0px 13px 0px #000000a8"
+                borderRadius={2}
+                overflow="hidden"
+              >
+                <Box
+                  component="img"
+                  src={item.image ? item.image : emptyImag}
+                  alt={item.image + index}
+                  title={item.image + index}
                   sx={{
-                    backgroundColor: "#fff",
+                    width: "100%",
+                    maxWidth: 500,
+                    height: 270,
+                    objectFit: "cover",
                   }}
                 />
 
-                <TextField
-                  id="text"
-                  label="Text"
-                  multiline
-                  rows={3}
-                  value={item.text}
-                  onChange={(e) => handleChangeText(e, index)}
-                  sx={{
-                    backgroundColor: "#fff",
-                  }}
-                  InputProps={{
-                    sx: {
-                      height: 100,
-                      alignItems: "flex-start",
-                    },
-                  }}
-                />
+                <Stack gap={2}>
+                  <Button
+                    value={item.image ? "Update photo" : "Add photo"}
+                    color="info"
+                    onClick={() =>
+                      document
+                        .getElementById(`file-input-${item.image + 1}`)
+                        ?.click()
+                    }
+                  />
+
+                  <input
+                    id={`file-input-${item.image + 1}`}
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={(e) => handleFileChange(e, index)}
+                  />
+
+                  <Button
+                    value="Remove this block"
+                    color="error"
+                    onClick={() => handleRemoveBlock(index)}
+                  />
+                </Stack>
+
+                <Stack width="100%" maxWidth={640} gap={3}>
+                  <TextField
+                    label="Title"
+                    type="text"
+                    value={item.title}
+                    onChange={(e) => handleChangeTitle(e, index)}
+                    sx={{
+                      backgroundColor: "#fff",
+                    }}
+                  />
+
+                  <TextField
+                    label="Text"
+                    multiline
+                    rows={3}
+                    value={item.text}
+                    onChange={(e) => handleChangeText(e, index)}
+                    sx={{
+                      backgroundColor: "#fff",
+                    }}
+                    InputProps={{
+                      sx: {
+                        height: 100,
+                        alignItems: "flex-start",
+                      },
+                    }}
+                  />
+                </Stack>
               </Stack>
-            </Stack>
-          ))}
+            ))
+            .reverse()}
         </Stack>
       </AccordionDetails>
     </Accordion>

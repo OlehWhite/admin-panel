@@ -47,7 +47,6 @@ const Schedule = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
               </Typography>
               <Box>{" - "}</Box>
               <TextField
-                id={day}
                 label="Open"
                 type="text"
                 value={open}
@@ -56,7 +55,6 @@ const Schedule = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
               />
               -
               <TextField
-                id={day}
                 label="Close"
                 type="text"
                 value={close}

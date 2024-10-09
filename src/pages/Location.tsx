@@ -180,7 +180,6 @@ const Location = () => {
 
           <Stack direction="column" gap={3.4} width="100%">
             <TextField
-              id="title"
               label="Title"
               type="text"
               value={location?.title}
@@ -194,7 +193,6 @@ const Location = () => {
             />
 
             <TextField
-              id="address"
               label="Address"
               type="text"
               value={location?.address}
@@ -208,7 +206,6 @@ const Location = () => {
             />
 
             <TextField
-              id="email"
               label="Email"
               type="email"
               value={location?.email}
@@ -222,7 +219,6 @@ const Location = () => {
             />
 
             <TextField
-              id="telephone"
               label="Telephone"
               type="tel"
               value={location?.tel}
@@ -236,7 +232,6 @@ const Location = () => {
             />
 
             <TextField
-              id="link"
               label="link"
               type="url"
               value={location?.link}
@@ -250,7 +245,6 @@ const Location = () => {
             />
 
             <TextField
-              id="googleMap"
               label="Google map"
               type="text"
               value={location?.googleMap}

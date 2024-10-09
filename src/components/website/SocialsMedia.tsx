@@ -52,7 +52,6 @@ const SocialsMedia = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
           {stateWebsite.links.map((linkObj, index) => (
             <TextField
               key={linkObj.title}
-              id={linkObj.title}
               label={linkObj.title}
               type="text"
               value={linkObj.link}

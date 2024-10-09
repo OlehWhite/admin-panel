@@ -21,7 +21,7 @@ export const DEFAULT_WEBSITE: Website = {
   tel: "",
   googleMaps: "",
   email: "",
-  headerImages: [{ image: "", title: "", text: "" }],
+  headerImages: [],
   schedule: [
     { day: "Sunday", open: "", close: "" },
     { day: "Monday", open: "", close: "" },
@@ -31,42 +31,16 @@ export const DEFAULT_WEBSITE: Website = {
     { day: "Friday", open: "", close: "" },
     { day: "Saturday", open: "", close: "" },
   ],
-  links: [{ link: "", title: "" }],
-  blogs: [
-    {
-      image: "",
-      title: "",
-      text: [],
-      date: "",
-      id: "",
-    },
+  links: [
+    { title: "Instagram", link: "" },
+    { title: "Facebook", link: "" },
+    { title: "LinkedIn", link: "" },
+    { title: "Twitter", link: "" },
   ],
-  locations: [
-    {
-      id: "",
-      image: "",
-      link: "",
-      address: "",
-      email: "",
-      title: "",
-      tel: "",
-      googleMap: "",
-      open: true,
-    },
-  ],
-  ourPartners: [{ link: "", title: "", image: "" }],
-  doctors: [
-    {
-      id: "",
-      image: "",
-      firstName: "",
-      lastName: "",
-      age: 0,
-      text: "",
-      title: "",
-      link: "",
-    },
-  ],
+  blogs: [],
+  locations: [],
+  ourPartners: [],
+  doctors: [],
 };
 
 export const DEFAULT_BLOG: IBlog = {

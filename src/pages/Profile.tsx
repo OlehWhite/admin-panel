@@ -78,6 +78,7 @@ const Profile = () => {
         <Stack direction="row" gap={3}>
           <FormControl sx={{ width: "100%", maxWidth: 300 }}>
             <InputLabel id="demo-simple-select-label">Roles</InputLabel>
+
             <Select value={role} label="Role" onChange={handleChange}>
               {Object.values(ROLES).map((role) => (
                 <MenuItem key={role} value={role}>
@@ -88,7 +89,6 @@ const Profile = () => {
           </FormControl>
 
           <TextField
-            id="password"
             label="Access key"
             type="Access key"
             multiline

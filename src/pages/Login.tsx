@@ -62,7 +62,6 @@ const Login = () => {
         onSubmit={(e) => handleSubmit(e)}
       >
         <TextField
-          id="login"
           label="Login"
           type="email"
           multiline
@@ -77,7 +76,6 @@ const Login = () => {
         />
 
         <TextField
-          id="password"
           label="Password"
           type="password"
           multiline

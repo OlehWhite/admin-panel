@@ -23,6 +23,8 @@ import emptyImag from "../assets/empty-img.png";
 import Layout from "../components/Layout.tsx";
 import Button from "../components/shared/Button.tsx";
 import ModalDeleteConfirmBlog from "../components/modals/ModalDeleteConfirmBlog.tsx";
+import { toast } from "react-toastify";
+import { successParams } from "../services/toastParams.ts";
 
 const Blog = () => {
   const { id: uid } = generateId();
@@ -133,6 +135,7 @@ const Blog = () => {
       }
 
       navigate(`/website/${id}`);
+      toast.success("Project data successfully saved!", successParams);
     } catch (error) {
       console.error("Error request: ", error);
     }
@@ -208,7 +211,6 @@ const Blog = () => {
             </LocalizationProvider>
 
             <TextField
-              id="title"
               label="Title"
               type="text"
               value={blog?.title}
@@ -290,6 +292,7 @@ const Blog = () => {
           </Stack>
         </Stack>
       </Stack>
+
       <Stack mt={4} direction="row" width="100%" justifyContent="space-between">
         <Button
           value="Save"

@@ -56,7 +56,6 @@ const Main = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
         }}
       >
         <TextField
-          id="title"
           label="Title"
           type="text"
           value={stateWebsite?.title}
@@ -65,7 +64,6 @@ const Main = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
         />
 
         <TextField
-          id="email"
           label="Email"
           type="email"
           value={stateWebsite.email}
@@ -79,7 +77,6 @@ const Main = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
         />
 
         <TextField
-          id="telephone"
           label="Telephone"
           type="tel"
           value={stateWebsite.tel}
@@ -93,7 +90,6 @@ const Main = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
         />
 
         <TextField
-          id="address"
           label="Address"
           type="text"
           value={stateWebsite.address}
@@ -107,7 +103,6 @@ const Main = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
         />
 
         <TextField
-          id="googleMap"
           label="GoogleMap"
           type="text"
           value={stateWebsite.googleMaps}

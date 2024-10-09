@@ -70,59 +70,61 @@ const Doctors = ({ stateWebsite }: IWebsiteState) => {
         </Stack>
 
         <Stack flexWrap="wrap" width="100%" gap={3.6}>
-          {stateWebsite?.doctors.reverse().map((doctor) => (
-            <Stack
-              key={doctor.id}
-              sx={{
-                cursor: "pointer",
-                transition: ".5s",
-                ":hover": {
-                  transition: ".5s",
-                  backgroundColor: "#a6eaf37a",
-                },
-              }}
-              direction="row"
-              flexWrap="wrap"
-              gap={3}
-              boxShadow="0px 0px 13px 0px #000000a8;"
-              borderRadius={2}
-              overflow="hidden"
-              height={150}
-              onClick={() => handleOpenDoctor(doctor, doctor.id)}
-            >
+          {stateWebsite?.doctors
+            .map((doctor) => (
               <Stack
-                component="img"
-                src={doctor.image ? doctor.image : emptyImag}
+                key={doctor.id}
                 sx={{
-                  width: 220,
-                  height: 150,
-                  objectFit: "cover",
+                  cursor: "pointer",
+                  transition: ".5s",
+                  ":hover": {
+                    transition: ".5s",
+                    backgroundColor: "#a6eaf37a",
+                  },
                 }}
-              />
+                direction="row"
+                flexWrap="wrap"
+                gap={3}
+                boxShadow="0px 0px 13px 0px #000000a8;"
+                borderRadius={2}
+                overflow="hidden"
+                height={150}
+                onClick={() => handleOpenDoctor(doctor, doctor.id)}
+              >
+                <Stack
+                  component="img"
+                  src={doctor.image ? doctor.image : emptyImag}
+                  sx={{
+                    width: 220,
+                    height: 150,
+                    objectFit: "cover",
+                  }}
+                />
 
-              <Stack gap={1} justifyContent="center">
-                <Typography color="#3498db" fontSize={20}>
-                  {doctor.firstName} {doctor.lastName}
-                </Typography>
+                <Stack gap={1} justifyContent="center">
+                  <Typography color="#3498db" fontSize={20}>
+                    {doctor.firstName} {doctor.lastName}
+                  </Typography>
 
-                <Typography fontWeight={300} fontStyle="italic">
-                  Age: {doctor.age}
-                </Typography>
+                  <Typography fontWeight={300} fontStyle="italic">
+                    Age: {doctor.age}
+                  </Typography>
 
-                <Typography fontWeight={400}>
-                  {doctor.title.length > 150
-                    ? doctor.title.slice(0, 150) + "..."
-                    : doctor.title}
-                </Typography>
+                  <Typography fontWeight={400}>
+                    {doctor.title.length > 150
+                      ? doctor.title.slice(0, 150) + "..."
+                      : doctor.title}
+                  </Typography>
 
-                <Typography fontWeight={300} fontStyle="italic">
-                  {doctor.text.length > 150
-                    ? doctor.text.slice(0, 150) + "..."
-                    : doctor.text}
-                </Typography>
+                  <Typography fontWeight={300} fontStyle="italic">
+                    {doctor.text.length > 150
+                      ? doctor.text.slice(0, 150) + "..."
+                      : doctor.text}
+                  </Typography>
+                </Stack>
               </Stack>
-            </Stack>
-          ))}
+            ))
+            .reverse()}
         </Stack>
       </AccordionDetails>
     </Accordion>

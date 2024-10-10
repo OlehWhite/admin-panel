@@ -9,6 +9,8 @@ import { useLogOut } from "../store/logout.ts";
 import { getCurrentUser } from "../store/getData.ts";
 
 import Button from "./shared/Button.tsx";
+import { getRoleName } from "../services/utils.ts";
+import { ROLES } from "../services/constants.ts";
 
 interface Props {
   children: ReactNode;
@@ -17,6 +19,7 @@ interface Props {
 const Layout = ({ children }: Props) => {
   const navigate = useNavigate();
   const user = getCurrentUser();
+  const role = getRoleName(user?.name);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -24,7 +27,11 @@ const Layout = ({ children }: Props) => {
 
   const handleLogOut = async () => {
     try {
-      localStorage.clear();
+      localStorage.removeItem("blog");
+      localStorage.removeItem("doctor");
+      localStorage.removeItem("location");
+      localStorage.removeItem("user");
+
       await useLogOut(navigate);
     } catch (error) {
       console.error("Failed  to Log out: ", error);
@@ -40,10 +47,12 @@ const Layout = ({ children }: Props) => {
   };
 
   return (
-    <Stack width="100%" bgcolor="#f6ffff">
+    <>
       <Stack
+        position="fixed"
+        width="100%"
+        zIndex={10}
         sx={{
-          backgroundColor: "#74EBD5",
           backgroundImage: "linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%)",
           boxShadow: "0px 0px 13px 0px #000000a8",
         }}
@@ -82,7 +91,7 @@ const Layout = ({ children }: Props) => {
             <Box component="span" fontWeight={600}>
               Role:{" "}
             </Box>
-            {user?.name}
+            {role}
           </Typography>
 
           <Stack direction="row" alignItems="center" gap={3}>
@@ -91,7 +100,7 @@ const Layout = ({ children }: Props) => {
         </Stack>
       </Stack>
 
-      <Stack width="100%" maxWidth="1440px" margin="0 auto" py={3}>
+      <Stack width="100%" maxWidth="1440px" margin="0 auto" py={13}>
         <Stack direction="row" gap={2}>
           <Button
             value="Back"
@@ -112,7 +121,7 @@ const Layout = ({ children }: Props) => {
 
         {children}
       </Stack>
-    </Stack>
+    </>
   );
 };
 

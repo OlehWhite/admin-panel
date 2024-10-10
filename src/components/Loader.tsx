@@ -1,13 +1,22 @@
 import { CircularProgress, Stack } from "@mui/material";
-import Layout from "./Layout.tsx";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Loader = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate("/");
+    }, 10000);
+
+    return () => clearTimeout(timer);
+  }, [navigate]);
+
   return (
-    <Layout>
-      <Stack alignItems="center">
-        <CircularProgress color="primary" size={60} />
-      </Stack>
-    </Layout>
+    <Stack alignItems="center">
+      <CircularProgress color="primary" size={60} />
+    </Stack>
   );
 };
 

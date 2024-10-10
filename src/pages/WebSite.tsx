@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Stack, Typography } from "@mui/material";
+import { CircularProgress, Stack, Typography } from "@mui/material";
 
 import { Website } from "../types/websites.types.ts";
-import { DEFAULT_WEBSITE } from "../services/constants.ts";
+import { DEFAULT_WEBSITE, ROLES } from "../services/constants.ts";
 
 import { generateId } from "../services/utils.ts";
-import { useGetWebsites } from "../store/getData.ts";
+import { getCurrentUser, useGetWebsites } from "../store/getData.ts";
 import { saveProjectsToFirestore } from "../store/updateProjects.ts";
 
 import Layout from "../components/Layout.tsx";
@@ -19,11 +19,13 @@ import Schedule from "../components/website/Schedule.tsx";
 import OurPartners from "../components/website/OurPartners.tsx";
 import HeaderImages from "../components/website/HeaderImages.tsx";
 import SocialsMedia from "../components/website/SocialsMedia.tsx";
+import Loader from "../components/Loader.tsx";
 
 const WebSite = () => {
   const { id } = useParams();
   const { id: uid } = generateId();
   const navigate = useNavigate();
+  const user = getCurrentUser();
 
   const { websites } = useGetWebsites();
 
@@ -110,85 +112,100 @@ const WebSite = () => {
     }
   };
 
-  return (
-    <Layout>
-      <Typography
-        variant="h5"
-        fontWeight={600}
-        color="rgb(55 152 210 / 98%)"
-        sx={{ mb: 2 }}
-        textAlign="center"
-      >
-        {stateWebsite.title || "Loading..."}
-      </Typography>
-
-      <Stack gap={1}>
-        <Main stateWebsite={stateWebsite} setStateWebsite={setStateWebsite} />
-
-        <Schedule
-          stateWebsite={stateWebsite}
-          setStateWebsite={setStateWebsite}
-        />
-
-        <HeaderImages
-          stateWebsite={stateWebsite}
-          setStateWebsite={setStateWebsite}
-        />
-
-        <SocialsMedia
-          stateWebsite={stateWebsite}
-          setStateWebsite={setStateWebsite}
-        />
-
-        <Blogs stateWebsite={stateWebsite} setStateWebsite={setStateWebsite} />
-
-        <Locations
-          stateWebsite={stateWebsite}
-          setStateWebsite={setStateWebsite}
-        />
-
-        <OurPartners
-          stateWebsite={stateWebsite}
-          setStateWebsite={setStateWebsite}
-        />
-
-        <Doctors
-          stateWebsite={stateWebsite}
-          setStateWebsite={setStateWebsite}
-        />
-
-        <Stack
-          mt={4}
-          direction="row"
-          width="100%"
-          justifyContent="space-between"
+  if (
+    stateWebsite.keyName === user.name ||
+    user.name === ROLES.DEVELOPER ||
+    user.name === ROLES.SUPER_ADMIN
+  ) {
+    return (
+      <Layout>
+        <Typography
+          variant="h5"
+          fontWeight={600}
+          color="rgb(55 152 210 / 98%)"
+          sx={{ mb: 2 }}
+          textAlign="center"
         >
-          <Button
-            value="Save"
-            onClick={handleSave}
-            disabled={!stateWebsite?.title}
-            sx={{
-              width: "100%",
-              maxWidth: 300,
-              height: 56,
-            }}
+          {stateWebsite.title || "Loading..."}
+        </Typography>
+
+        <Stack gap={1}>
+          <Main stateWebsite={stateWebsite} setStateWebsite={setStateWebsite} />
+
+          <Schedule
+            stateWebsite={stateWebsite}
+            setStateWebsite={setStateWebsite}
           />
 
-          <Button
-            value="Delete"
-            onClick={handleDelete}
-            color="error"
-            variant="outlined"
-            sx={{
-              width: "100%",
-              maxWidth: 300,
-              height: 56,
-            }}
+          <HeaderImages
+            stateWebsite={stateWebsite}
+            setStateWebsite={setStateWebsite}
           />
+
+          <SocialsMedia
+            stateWebsite={stateWebsite}
+            setStateWebsite={setStateWebsite}
+          />
+
+          <Blogs
+            stateWebsite={stateWebsite}
+            setStateWebsite={setStateWebsite}
+          />
+
+          <Locations
+            stateWebsite={stateWebsite}
+            setStateWebsite={setStateWebsite}
+          />
+
+          <OurPartners
+            stateWebsite={stateWebsite}
+            setStateWebsite={setStateWebsite}
+          />
+
+          <Doctors
+            stateWebsite={stateWebsite}
+            setStateWebsite={setStateWebsite}
+          />
+
+          <Stack
+            mt={4}
+            direction="row"
+            width="100%"
+            justifyContent="space-between"
+          >
+            <Button
+              value="Save"
+              onClick={handleSave}
+              disabled={!stateWebsite?.title}
+              sx={{
+                width: "100%",
+                maxWidth: 300,
+                height: 56,
+              }}
+            />
+
+            <Button
+              value="Delete"
+              onClick={handleDelete}
+              color="error"
+              variant="outlined"
+              sx={{
+                width: "100%",
+                maxWidth: 300,
+                height: 56,
+              }}
+            />
+          </Stack>
         </Stack>
-      </Stack>
-    </Layout>
-  );
+      </Layout>
+    );
+  } else {
+    return (
+      <Layout>
+        <Loader />
+      </Layout>
+    );
+  }
 };
 
 export default WebSite;

@@ -8,8 +8,8 @@ export const saveProjectsToFirestore = async (projectsData: any) => {
     const docRef = doc(db, "projects", "j2W4Y5MrUiKzUvfGfgiO");
     await setDoc(docRef, projectsData);
 
-    toast.success("Project data successfully saved!", successParams);
+    toast.success("Your changes have been successfully saved!", successParams);
   } catch (error) {
-    toast.error(`Error saving project data: ${error}`, errorParams);
+    toast.error(`Error saving changes: ${error}`, errorParams);
   }
 };

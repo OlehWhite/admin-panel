@@ -10,7 +10,6 @@ import { getCurrentUser } from "../store/getData.ts";
 
 import Button from "./shared/Button.tsx";
 import { getRoleName } from "../services/utils.ts";
-import { ROLES } from "../services/constants.ts";
 
 interface Props {
   children: ReactNode;

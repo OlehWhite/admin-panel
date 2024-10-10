@@ -1,5 +1,4 @@
 import { IAuthorization } from "../types/login.types.ts";
-import { IRoles } from "../types/role.types.ts";
 import { IBlog, IDoctor, ILocation, Website } from "../types/websites.types.ts";
 
 export const DEFAULT_AUTHORIZATION: IAuthorization = {

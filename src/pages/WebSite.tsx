@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { CircularProgress, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 
 import { Website } from "../types/websites.types.ts";
 import { DEFAULT_WEBSITE, ROLES } from "../services/constants.ts";

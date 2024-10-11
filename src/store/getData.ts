@@ -9,6 +9,7 @@ import {
 import {
   DEFAULT_BLOG,
   DEFAULT_LOCATION,
+  DEFAULT_PROVIDER,
   DEFAULT_WEBSITE,
 } from "../services/constants.ts";
 
@@ -82,11 +83,11 @@ export const useGetLocation = () => {
   return { storeLocation };
 };
 
-export const useGetDoctor = () => {
-  const storeDoctorString = localStorage.getItem("doctor");
-  const storeDoctor = storeDoctorString
-    ? JSON.parse(storeDoctorString)
-    : DEFAULT_LOCATION;
+export const useGetProvider = () => {
+  const storeProviderString = localStorage.getItem("provider");
+  const storeProvider = storeProviderString
+    ? JSON.parse(storeProviderString)
+    : DEFAULT_PROVIDER;
 
-  return { storeDoctor };
+  return { storeProvider };
 };

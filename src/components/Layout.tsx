@@ -6,10 +6,10 @@ import { Avatar, Stack, Box, Typography } from "@mui/material";
 import logo from "../assets/logo.png";
 
 import { useLogOut } from "../store/logout.ts";
+import { getRoleName } from "../services/utils.ts";
 import { getCurrentUser } from "../store/getData.ts";
 
 import Button from "./shared/Button.tsx";
-import { getRoleName } from "../services/utils.ts";
 
 interface Props {
   children: ReactNode;

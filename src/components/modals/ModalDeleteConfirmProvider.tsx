@@ -18,14 +18,14 @@ interface Props {
   websites: WebsitesCollection;
 }
 
-const ModalDeleteConfirmDoctor = ({
+const ModalDeleteConfirmProvider = ({
   stateWebsite,
   open,
   setOpen,
   websites,
 }: Props) => {
   const navigate = useNavigate();
-  const { id, idDoctor } = useParams();
+  const { id, idProvider } = useParams();
 
   const handleDelete = async () => {
     const arrayWebsites = Object.entries(websites).map(([_, project]) =>
@@ -38,8 +38,8 @@ const ModalDeleteConfirmDoctor = ({
       if (website.id === id) {
         acc[website.keyName] = {
           ...stateWebsite,
-          doctors: stateWebsite.doctors.filter(
-            (oldDoctor) => oldDoctor.id !== idDoctor,
+          providers: stateWebsite.providers.filter(
+            (oldProvider) => oldProvider.id !== idProvider,
           ),
         };
       } else {
@@ -54,7 +54,7 @@ const ModalDeleteConfirmDoctor = ({
       await saveProjectsToFirestore(updateWebsites);
       navigate(`/website/${id}`);
     } catch (error) {
-      console.error("Error deleting doctor: ", error);
+      console.error("Error deleting provider: ", error);
     }
   };
 
@@ -75,7 +75,7 @@ const ModalDeleteConfirmDoctor = ({
     >
       <Stack bgcolor="#f6ffff" p={2} gap={3} textAlign="center">
         <Typography fontSize={18}>
-          Do you really want to delete this doctor?
+          Do you really want to delete this provider?
         </Typography>
 
         <Stack direction="row" justifyContent="space-around">
@@ -88,4 +88,4 @@ const ModalDeleteConfirmDoctor = ({
   );
 };
 
-export default ModalDeleteConfirmDoctor;
+export default ModalDeleteConfirmProvider;

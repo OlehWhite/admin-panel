@@ -1,5 +1,10 @@
 import { IAuthorization } from "../types/login.types.ts";
-import { IBlog, IDoctor, ILocation, Website } from "../types/websites.types.ts";
+import {
+  IBlog,
+  ILocation,
+  IProvider,
+  Website,
+} from "../types/websites.types.ts";
 
 export const DEFAULT_AUTHORIZATION: IAuthorization = {
   login: "",
@@ -13,7 +18,7 @@ export enum ROLES {
   POSITIVE_RESET = "POSITIVE_RESET",
   POSITIVE_RESET_SERVICES = "POSITIVE_RESET_SERVICES",
   JERSEY_BEHAVIORAL_CARE = "JERSEY_BEHAVIORAL_CARE",
-  POSITIVE_RESET_SERVICES_ISELIN = "POSITIVE_RESET_SERVICES_ISLIN",
+  POSITIVE_RESET_SERVICES_ISELIN = "POSITIVE_RESET_SERVICES_ISELIN",
   POSITIVE_RESET_MANALAPAN = "POSITIVE_RESET_MANALAPAN",
   POSITIVE_RESET_ELIZABETH = "POSITIVE_RESET_ELIZABETH",
   OCEAN_INSIGHT_CENTER = "OCEAN_INSIGHT_CENTER",
@@ -46,7 +51,7 @@ export const DEFAULT_WEBSITE: Website = {
   blogs: [],
   locations: [],
   ourPartners: [],
-  doctors: [],
+  providers: [],
 };
 
 export const DEFAULT_BLOG: IBlog = {
@@ -69,7 +74,7 @@ export const DEFAULT_LOCATION: ILocation = {
   open: true,
 };
 
-export const DEFAULT_DOCTOR: IDoctor = {
+export const DEFAULT_PROVIDER: IProvider = {
   image: "",
   firstName: "",
   lastName: "",

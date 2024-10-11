@@ -5,39 +5,39 @@ import { Box, Stack, TextField, Typography } from "@mui/material";
 
 import {
   useFindWebsite,
-  useGetDoctor,
+  useGetProvider,
   useGetWebsites,
 } from "../store/getData.ts";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 import { generateId } from "../services/utils.ts";
-import { DEFAULT_DOCTOR } from "../services/constants.ts";
+import { DEFAULT_PROVIDER } from "../services/constants.ts";
 import { saveProjectsToFirestore } from "../store/updateProjects.ts";
 
 import emptyImag from "../assets/empty-img.png";
-import { IDoctor, Project } from "../types/websites.types.ts";
+import { IProvider, Project } from "../types/websites.types.ts";
 
 import Layout from "../components/Layout.tsx";
 import Button from "../components/shared/Button.tsx";
-import ModalDeleteConfirmDoctor from "../components/modals/ModalDeleteConfirmDoctor.tsx";
+import ModalDeleteConfirmProvider from "../components/modals/ModalDeleteConfirmProvider.tsx";
 
-const Doctor = () => {
+const Provider = () => {
   const { id: uid } = generateId();
-  const { id, idDoctor } = useParams();
+  const { id, idProvider } = useParams();
   const navigate = useNavigate();
 
-  const { storeDoctor } = useGetDoctor();
+  const { storeProvider } = useGetProvider();
   const { websites } = useGetWebsites();
   const { stateWebsite } = useFindWebsite(websites, id!);
 
-  const [doctor, setDoctor] = useState<IDoctor>(DEFAULT_DOCTOR);
+  const [provider, setProvider] = useState<IProvider>(DEFAULT_PROVIDER);
   const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    if (idDoctor) {
-      setDoctor(storeDoctor);
+    if (idProvider) {
+      setProvider(storeProvider);
     } else {
-      setDoctor((prevState) => ({
+      setProvider((prevState) => ({
         ...prevState,
         id: uid,
       }));
@@ -61,7 +61,7 @@ const Doctor = () => {
 
       const url = await getDownloadURL(storageRef);
 
-      setDoctor((prevState) => ({
+      setProvider((prevState) => ({
         ...prevState,
         image: url,
       }));
@@ -93,12 +93,12 @@ const Doctor = () => {
     const newKeyName = stateWebsite.keyName;
 
     try {
-      if (!idDoctor) {
+      if (!idProvider) {
         await saveProjectsToFirestore({
           ...updateWebsites,
           [newKeyName]: {
             ...stateWebsite,
-            doctors: [...stateWebsite.doctors, doctor],
+            providers: [...stateWebsite.providers, provider],
           },
         });
       } else {
@@ -106,12 +106,12 @@ const Doctor = () => {
           ...updateWebsites,
           [newKeyName]: {
             ...stateWebsite,
-            doctors: [
-              ...stateWebsite?.doctors.map((oldDoctor) => {
-                if (oldDoctor.id === idDoctor) {
-                  return doctor;
+            providers: [
+              ...stateWebsite?.providers.map((oldProvider) => {
+                if (oldProvider.id === idProvider) {
+                  return provider;
                 } else {
-                  return oldDoctor;
+                  return oldProvider;
                 }
               }),
             ],
@@ -138,7 +138,7 @@ const Doctor = () => {
       >
         {stateWebsite.title || "Loading..."}
         <Box component="span" sx={{ color: "#000" }}>
-          {" / Doctor"}
+          {" / Provider"}
         </Box>
       </Typography>
 
@@ -152,8 +152,8 @@ const Doctor = () => {
         <Stack direction="row" alignItems="center" gap={3}>
           <Box
             component="img"
-            src={doctor?.image ? doctor?.image : emptyImag}
-            alt={doctor?.title}
+            src={provider?.image ? provider?.image : emptyImag}
+            alt={provider?.title}
             sx={{
               width: "100%",
               maxWidth: 360,
@@ -164,10 +164,10 @@ const Doctor = () => {
 
           <Stack direction="column" gap={3.4} width="100%">
             <Button
-              value={doctor?.image ? "Update photo" : "Add photo"}
+              value={provider?.image ? "Update photo" : "Add photo"}
               color="info"
               onClick={() =>
-                document.getElementById(`file-input-${doctor.id}`)?.click()
+                document.getElementById(`file-input-${provider.id}`)?.click()
               }
               sx={{
                 height: 56,
@@ -176,7 +176,7 @@ const Doctor = () => {
             />
 
             <input
-              id={`file-input-${doctor.id}`}
+              id={`file-input-${provider.id}`}
               type="file"
               accept="image/*"
               style={{ display: "none" }}
@@ -187,9 +187,9 @@ const Doctor = () => {
               <TextField
                 label="First Name"
                 type="text"
-                value={doctor?.firstName}
+                value={provider?.firstName}
                 onChange={(e) => {
-                  setDoctor((prevState) => ({
+                  setProvider((prevState) => ({
                     ...prevState,
                     firstName: e.target.value,
                   }));
@@ -200,9 +200,9 @@ const Doctor = () => {
               <TextField
                 label="Last Name"
                 type="text"
-                value={doctor?.lastName}
+                value={provider?.lastName}
                 onChange={(e) => {
-                  setDoctor((prevState) => ({
+                  setProvider((prevState) => ({
                     ...prevState,
                     lastName: e.target.value,
                   }));
@@ -213,9 +213,9 @@ const Doctor = () => {
               <TextField
                 label="Age"
                 type="number"
-                value={doctor?.age}
+                value={provider?.age}
                 onChange={(e) => {
-                  setDoctor((prevState) => ({
+                  setProvider((prevState) => ({
                     ...prevState,
                     age: Number(e.target.value),
                   }));
@@ -227,9 +227,9 @@ const Doctor = () => {
               <TextField
                 label="Social media (link)"
                 type="text"
-                value={doctor?.link}
+                value={provider?.link}
                 onChange={(e) => {
-                  setDoctor((prevState) => ({
+                  setProvider((prevState) => ({
                     ...prevState,
                     link: e.target.value,
                   }));
@@ -241,11 +241,11 @@ const Doctor = () => {
             <TextField
               label="Title"
               type="text"
-              value={doctor?.title}
+              value={provider?.title}
               multiline
               rows={3}
               onChange={(e) => {
-                setDoctor((prevState) => ({
+                setProvider((prevState) => ({
                   ...prevState,
                   title: e.target.value,
                 }));
@@ -258,11 +258,11 @@ const Doctor = () => {
         <TextField
           label="Text"
           type="text"
-          value={doctor?.text}
+          value={provider?.text}
           multiline
           maxRows={10}
           onChange={(e) => {
-            setDoctor((prevState) => ({
+            setProvider((prevState) => ({
               ...prevState,
               text: e.target.value,
             }));
@@ -282,7 +282,7 @@ const Doctor = () => {
           }}
         />
 
-        {idDoctor && (
+        {idProvider && (
           <Button
             value="Delete this blog"
             onClick={handleOpenModal}
@@ -297,7 +297,7 @@ const Doctor = () => {
         )}
       </Stack>
 
-      <ModalDeleteConfirmDoctor
+      <ModalDeleteConfirmProvider
         stateWebsite={stateWebsite}
         open={open}
         setOpen={setOpen}
@@ -307,4 +307,4 @@ const Doctor = () => {
   );
 };
 
-export default Doctor;
+export default Provider;

@@ -14,7 +14,7 @@ export interface Website {
   locations: ILocation[];
   email: string;
   ourPartners: IOurPartner[];
-  doctors: IDoctor[];
+  providers: IProvider[];
 }
 
 export interface IOurPartner {
@@ -23,7 +23,7 @@ export interface IOurPartner {
   image: string;
 }
 
-export interface IDoctor {
+export interface IProvider {
   image: string;
   firstName: string;
   lastName: string;

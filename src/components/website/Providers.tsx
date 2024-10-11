@@ -10,30 +10,30 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import emptyImag from "../../assets/empty-img.png";
 
-import { IDoctor, IWebsiteState } from "../../types/websites.types.ts";
+import { IProvider, IWebsiteState } from "../../types/websites.types.ts";
 
 import Button from "../shared/Button.tsx";
 
-const Doctors = ({ stateWebsite }: IWebsiteState) => {
+const Providers = ({ stateWebsite }: IWebsiteState) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const handleAddNewDoctor = () => {
+  const handleAddNewProvider = () => {
     try {
-      navigate(`/website/${id}/doctors`);
+      navigate(`/website/${id}/providers`);
     } catch (error) {
-      console.error("Can`t to create a new doctor:", error);
+      console.error("Can`t to create a new provider:", error);
     }
   };
 
-  const handleOpenDoctor = (doctor: IDoctor, idDoctor: string) => {
+  const handleOpenProvider = (provider: IProvider, idProvider: string) => {
     try {
-      if (doctor) {
-        localStorage.setItem("doctor", JSON.stringify(doctor));
+      if (provider) {
+        localStorage.setItem("provider", JSON.stringify(provider));
       }
-      navigate(`/website/${id}/doctors/${idDoctor}`);
+      navigate(`/website/${id}/providers/${idProvider}`);
     } catch (error) {
-      console.error("Can`t to open the doctor:", error);
+      console.error("Can`t to open the provider:", error);
     }
   };
 
@@ -41,11 +41,11 @@ const Doctors = ({ stateWebsite }: IWebsiteState) => {
     <Accordion>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
-        aria-controls="doctors"
-        id="doctors"
+        aria-controls="providers"
+        id="providers"
       >
         <Typography fontSize={20}>
-          Doctors
+          Providers
           <Box component="span" fontSize={16} fontWeight={200}>
             {" "}
             ( Image, Link, First Name, Last Name, Age, Title, Text )
@@ -58,8 +58,8 @@ const Doctors = ({ stateWebsite }: IWebsiteState) => {
       <AccordionDetails>
         <Stack direction="row" justifyContent="center">
           <Button
-            value="Add new doctor"
-            onClick={handleAddNewDoctor}
+            value="Add new provider"
+            onClick={handleAddNewProvider}
             sx={{
               width: "100%",
               maxWidth: 300,
@@ -70,10 +70,10 @@ const Doctors = ({ stateWebsite }: IWebsiteState) => {
         </Stack>
 
         <Stack flexWrap="wrap" width="100%" gap={3.6}>
-          {stateWebsite?.doctors
-            .map((doctor) => (
+          {stateWebsite?.providers
+            .map((provider) => (
               <Stack
-                key={doctor.id}
+                key={provider.id}
                 sx={{
                   cursor: "pointer",
                   transition: ".5s",
@@ -89,11 +89,11 @@ const Doctors = ({ stateWebsite }: IWebsiteState) => {
                 borderRadius={2}
                 overflow="hidden"
                 height={150}
-                onClick={() => handleOpenDoctor(doctor, doctor.id)}
+                onClick={() => handleOpenProvider(provider, provider.id)}
               >
                 <Stack
                   component="img"
-                  src={doctor.image ? doctor.image : emptyImag}
+                  src={provider.image ? provider.image : emptyImag}
                   sx={{
                     width: 220,
                     height: 150,
@@ -103,23 +103,23 @@ const Doctors = ({ stateWebsite }: IWebsiteState) => {
 
                 <Stack gap={1} justifyContent="center">
                   <Typography color="#3498db" fontSize={20}>
-                    {doctor.firstName} {doctor.lastName}
+                    {provider.firstName} {provider.lastName}
                   </Typography>
 
                   <Typography fontWeight={300} fontStyle="italic">
-                    Age: {doctor.age}
+                    Age: {provider.age}
                   </Typography>
 
                   <Typography fontWeight={400}>
-                    {doctor.title.length > 150
-                      ? doctor.title.slice(0, 150) + "..."
-                      : doctor.title}
+                    {provider.title.length > 150
+                      ? provider.title.slice(0, 150) + "..."
+                      : provider.title}
                   </Typography>
 
                   <Typography fontWeight={300} fontStyle="italic">
-                    {doctor.text.length > 150
-                      ? doctor.text.slice(0, 150) + "..."
-                      : doctor.text}
+                    {provider.text.length > 150
+                      ? provider.text.slice(0, 150) + "..."
+                      : provider.text}
                   </Typography>
                 </Stack>
               </Stack>
@@ -131,4 +131,4 @@ const Doctors = ({ stateWebsite }: IWebsiteState) => {
   );
 };
 
-export default Doctors;
+export default Providers;

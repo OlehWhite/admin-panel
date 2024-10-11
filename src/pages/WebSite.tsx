@@ -10,16 +10,16 @@ import { getCurrentUser, useGetWebsites } from "../store/getData.ts";
 import { saveProjectsToFirestore } from "../store/updateProjects.ts";
 
 import Layout from "../components/Layout.tsx";
+import Loader from "../components/Loader.tsx";
 import Main from "../components/website/Main.tsx";
 import Blogs from "../components/website/Blogs.tsx";
 import Button from "../components/shared/Button.tsx";
-import Doctors from "../components/website/Doctors.tsx";
-import Locations from "../components/website/Locations.tsx";
 import Schedule from "../components/website/Schedule.tsx";
+import Providers from "../components/website/Providers.tsx";
+import Locations from "../components/website/Locations.tsx";
 import OurPartners from "../components/website/OurPartners.tsx";
 import HeaderImages from "../components/website/HeaderImages.tsx";
 import SocialsMedia from "../components/website/SocialsMedia.tsx";
-import Loader from "../components/Loader.tsx";
 
 const WebSite = () => {
   const { id } = useParams();
@@ -113,9 +113,9 @@ const WebSite = () => {
   };
 
   if (
-    stateWebsite.keyName === user.name ||
-    user.name === ROLES.DEVELOPER ||
-    user.name === ROLES.SUPER_ADMIN
+    stateWebsite?.keyName === user?.name ||
+    user?.name === ROLES.DEVELOPER ||
+    user?.name === ROLES.SUPER_ADMIN
   ) {
     return (
       <Layout>
@@ -130,17 +130,26 @@ const WebSite = () => {
         </Typography>
 
         <Stack gap={1}>
-          <Main stateWebsite={stateWebsite} setStateWebsite={setStateWebsite} />
+          {(user?.name === ROLES.DEVELOPER ||
+            user?.name === ROLES.SUPER_ADMIN) && (
+            <Main
+              stateWebsite={stateWebsite}
+              setStateWebsite={setStateWebsite}
+            />
+          )}
 
           <Schedule
             stateWebsite={stateWebsite}
             setStateWebsite={setStateWebsite}
           />
 
-          <HeaderImages
-            stateWebsite={stateWebsite}
-            setStateWebsite={setStateWebsite}
-          />
+          {(user?.name === ROLES.DEVELOPER ||
+            user?.name === ROLES.SUPER_ADMIN) && (
+            <HeaderImages
+              stateWebsite={stateWebsite}
+              setStateWebsite={setStateWebsite}
+            />
+          )}
 
           <SocialsMedia
             stateWebsite={stateWebsite}
@@ -152,20 +161,29 @@ const WebSite = () => {
             setStateWebsite={setStateWebsite}
           />
 
-          <Locations
-            stateWebsite={stateWebsite}
-            setStateWebsite={setStateWebsite}
-          />
+          {(user?.name === ROLES.DEVELOPER ||
+            user?.name === ROLES.SUPER_ADMIN) && (
+            <Locations
+              stateWebsite={stateWebsite}
+              setStateWebsite={setStateWebsite}
+            />
+          )}
 
-          <OurPartners
-            stateWebsite={stateWebsite}
-            setStateWebsite={setStateWebsite}
-          />
+          {(user?.name === ROLES.DEVELOPER ||
+            user?.name === ROLES.SUPER_ADMIN) && (
+            <OurPartners
+              stateWebsite={stateWebsite}
+              setStateWebsite={setStateWebsite}
+            />
+          )}
 
-          <Doctors
-            stateWebsite={stateWebsite}
-            setStateWebsite={setStateWebsite}
-          />
+          {(user?.name === ROLES.DEVELOPER ||
+            user?.name === ROLES.SUPER_ADMIN) && (
+            <Providers
+              stateWebsite={stateWebsite}
+              setStateWebsite={setStateWebsite}
+            />
+          )}
 
           <Stack
             mt={4}

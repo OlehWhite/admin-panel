@@ -25,7 +25,8 @@ export const getRoleName = (userName: string) => {
     userName === ROLES.POSITIVE_RESET_SERVICES_ISELIN ||
     userName === ROLES.POSITIVE_RESET_MANALAPAN ||
     userName === ROLES.POSITIVE_RESET_ELIZABETH ||
-    userName === ROLES.OCEAN_INSIGHT_CENTER
+    userName === ROLES.OCEAN_INSIGHT_CENTER ||
+    userName === ROLES.POSITIVE_RESET_EATONTOWN
   ) {
     return "Admin";
   }

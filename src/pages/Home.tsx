@@ -18,7 +18,7 @@ const Home = () => {
   const handleCreateWebsite = () => {
     navigate("/website");
   };
-  console.log(websites);
+  
   return (
     <Layout>
       <Typography

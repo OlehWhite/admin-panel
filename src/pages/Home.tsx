@@ -18,7 +18,7 @@ const Home = () => {
   const handleCreateWebsite = () => {
     navigate("/website");
   };
-
+  console.log(websites);
   return (
     <Layout>
       <Typography
@@ -47,20 +47,19 @@ const Home = () => {
           )}
       </Stack>
 
-      {user?.name === ROLES.DEVELOPER ||
-        (user?.name === ROLES.SUPER_ADMIN && (
-          <Stack mt={4} direction="row" width="100%" justifyContent="center">
-            <Button
-              value="Add new Website"
-              onClick={handleCreateWebsite}
-              sx={{
-                width: "100%",
-                maxWidth: 300,
-                height: 56,
-              }}
-            />
-          </Stack>
-        ))}
+      {(user?.name === ROLES.DEVELOPER || user?.name === ROLES.SUPER_ADMIN) && (
+        <Stack mt={4} direction="row" width="100%" justifyContent="center">
+          <Button
+            value="Add new Website"
+            onClick={handleCreateWebsite}
+            sx={{
+              width: "100%",
+              maxWidth: 300,
+              height: 56,
+            }}
+          />
+        </Stack>
+      )}
     </Layout>
   );
 };

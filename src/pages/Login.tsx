@@ -31,6 +31,12 @@ const Login = () => {
     }
   };
 
+  const handleKeyDown = (e: any) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+    }
+  };
+
   return (
     <Stack
       width="100%"
@@ -65,7 +71,7 @@ const Login = () => {
           label="Login"
           type="email"
           multiline
-          maxRows={1}
+          onKeyPress={handleKeyDown}
           value={authorization.login}
           onChange={(e) => {
             setAuthorization((prevState) => ({
@@ -79,7 +85,7 @@ const Login = () => {
           label="Password"
           type="password"
           multiline
-          maxRows={1}
+          onKeyPress={handleKeyDown}
           value={authorization.password}
           onChange={(e) => {
             setAuthorization((prevState) => ({

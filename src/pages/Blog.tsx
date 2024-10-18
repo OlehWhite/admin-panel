@@ -24,6 +24,7 @@ import emptyImag from "../assets/empty-img.png";
 import Layout from "../components/Layout.tsx";
 import Button from "../components/shared/Button.tsx";
 import ModalDeleteConfirmBlog from "../components/modals/ModalDeleteConfirmBlog.tsx";
+import TextEditor from "../components/website/blogs/TextEditor.tsx";
 
 const Blog = () => {
   const { id: uid } = generateId();
@@ -226,68 +227,7 @@ const Blog = () => {
         </Stack>
 
         <Stack gap={3} mt={3}>
-          {blog?.text.map((textItem, index) => (
-            <Stack key={index} direction="row" alignItems="center" spacing={1}>
-              <TextField
-                label="Paragraph"
-                type="text"
-                value={textItem}
-                multiline
-                rows={4}
-                onChange={(e) => {
-                  const updatedText = [...blog.text];
-                  updatedText[index] = e.target.value;
-                  setBlog((prevState) => ({
-                    ...prevState,
-                    text: updatedText,
-                  }));
-                }}
-                sx={{
-                  backgroundColor: "#fff",
-                  flex: 1,
-
-                  "& .MuiInputBase-root": {
-                    height: 130,
-                    alignItems: "flex-start",
-                  },
-                }}
-              />
-
-              <Button
-                value="Delete pharagraph"
-                color="error"
-                onClick={() => {
-                  const updatedText = blog.text.filter((_, i) => i !== index);
-                  setBlog((prevState) => ({
-                    ...prevState,
-                    text: updatedText,
-                  }));
-                }}
-                sx={{
-                  height: 56,
-                }}
-              />
-            </Stack>
-          ))}
-
-          <Stack direction="row" justifyContent="center">
-            <Button
-              variant="contained"
-              color="primary"
-              value="Add new pharagraph"
-              onClick={() => {
-                setBlog((prevState) => ({
-                  ...prevState,
-                  text: [...prevState.text, "New Paragraph"],
-                }));
-              }}
-              sx={{
-                width: "100%",
-                maxWidth: 300,
-                height: 56,
-              }}
-            />
-          </Stack>
+          <TextEditor state={blog} setState={setBlog} />
         </Stack>
       </Stack>
 

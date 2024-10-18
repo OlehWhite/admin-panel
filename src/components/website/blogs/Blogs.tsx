@@ -8,11 +8,11 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import emptyImag from "../../assets/empty-img.png";
+import emptyImag from "../../../assets/empty-img.png";
 
-import { IBlog, IWebsiteState } from "../../types/websites.types.ts";
+import { IBlog, IWebsiteState } from "../../../types/websites.types.ts";
 
-import Button from "../shared/Button.tsx";
+import Button from "../../shared/Button.tsx";
 
 const Blogs = ({ stateWebsite }: IWebsiteState) => {
   const { id } = useParams();
@@ -106,10 +106,6 @@ const Blogs = ({ stateWebsite }: IWebsiteState) => {
                     {blog.title.length > 150
                       ? blog.title.slice(0, 150) + "..."
                       : blog.title}
-                  </Typography>
-
-                  <Typography fontWeight={400} fontSize={15} color="#999999">
-                    [{blog.text.length}] Paragraphs
                   </Typography>
 
                   <Typography fontWeight={300} fontSize={14}>

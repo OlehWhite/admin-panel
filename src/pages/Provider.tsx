@@ -20,6 +20,7 @@ import { IProvider, Project } from "../types/websites.types.ts";
 import Layout from "../components/Layout.tsx";
 import Button from "../components/shared/Button.tsx";
 import ModalDeleteConfirmProvider from "../components/modals/ModalDeleteConfirmProvider.tsx";
+import TextEditor from "../components/website/blogs/TextEditor.tsx";
 
 const Provider = () => {
   const { id: uid } = generateId();
@@ -255,20 +256,9 @@ const Provider = () => {
           </Stack>
         </Stack>
 
-        <TextField
-          label="Text"
-          type="text"
-          value={provider?.text}
-          multiline
-          maxRows={10}
-          onChange={(e) => {
-            setProvider((prevState) => ({
-              ...prevState,
-              text: e.target.value,
-            }));
-          }}
-          sx={{ backgroundColor: "#fff", width: "100%" }}
-        />
+        <Stack gap={3} mt={3}>
+          <TextEditor state={provider} setState={setProvider} />
+        </Stack>
       </Stack>
 
       <Stack mt={4} direction="row" width="100%" justifyContent="space-between">

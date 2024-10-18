@@ -15,6 +15,7 @@ export interface Website {
   email: string;
   ourPartners: IOurPartner[];
   providers: IProvider[];
+  languages: string[];
 }
 
 export interface IOurPartner {

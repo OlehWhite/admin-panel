@@ -8,10 +8,10 @@ import UserLoader from "./components/UserLoader.tsx";
 import Home from "./pages/Home.tsx";
 import Blog from "./pages/Blog.tsx";
 import Login from "./pages/Login.tsx";
-import Profile from "./pages/Profile.tsx";
 import WebSite from "./pages/WebSite.tsx";
 import Location from "./pages/Location.tsx";
 import Provider from "./pages/Provider.tsx";
+import User from "./pages/User.tsx";
 
 function App() {
   const theme = getTheme();
@@ -22,11 +22,13 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="/website/" element={<WebSite />} />
         <Route path="/website/:id" element={<WebSite />} />
         <Route path="/website/:id/blogs" element={<Blog />} />
         <Route path="/website/:id/blogs/:idBlog" element={<Blog />} />
+        <Route path="/user" element={<User />} />
+        <Route path="/user/:idUser" element={<User />} />
+
         <Route path="/website/:id/locations" element={<Location />} />
         <Route
           path="/website/:id/locations/:idLocation"

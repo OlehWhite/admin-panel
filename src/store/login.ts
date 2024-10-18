@@ -10,6 +10,8 @@ export const login = async (email: string, password: string) => {
       email,
       password,
     );
+
+    console.log(userCredential);
     const user = {
       uid: userCredential.user.uid,
       email: userCredential.user.email,

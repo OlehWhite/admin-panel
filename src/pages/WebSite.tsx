@@ -12,7 +12,7 @@ import { saveProjectsToFirestore } from "../store/updateProjects.ts";
 import Layout from "../components/Layout.tsx";
 import Loader from "../components/Loader.tsx";
 import Main from "../components/website/Main.tsx";
-import Blogs from "../components/website/Blogs.tsx";
+import Blogs from "../components/website/blogs/Blogs.tsx";
 import Button from "../components/shared/Button.tsx";
 import Schedule from "../components/website/Schedule.tsx";
 import Providers from "../components/website/Providers.tsx";
@@ -20,6 +20,8 @@ import Locations from "../components/website/Locations.tsx";
 import OurPartners from "../components/website/OurPartners.tsx";
 import HeaderImages from "../components/website/HeaderImages.tsx";
 import SocialsMedia from "../components/website/SocialsMedia.tsx";
+import ModalDeleteConfirmWebsite from "../components/modals/ModalDeleteConfirmWebsite.tsx";
+import Languages from "../components/website/Languages.tsx";
 
 const WebSite = () => {
   const { id } = useParams();
@@ -30,6 +32,7 @@ const WebSite = () => {
   const { websites } = useGetWebsites();
 
   const [stateWebsite, setStateWebsite] = useState<Website>(DEFAULT_WEBSITE);
+  const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (websites) {
@@ -90,27 +93,7 @@ const WebSite = () => {
     }
   };
 
-  const handleDelete = async () => {
-    try {
-      if (id) {
-        const updatedWebsites: Record<string, Website> = Object.entries(
-          websites,
-        ).reduce((acc: Record<string, Website>, [, project]) => {
-          Object.entries(project).forEach(([websiteKey, website]) => {
-            if (website.id !== id) {
-              acc[websiteKey] = website;
-            }
-          });
-          return acc;
-        }, {});
-
-        await saveProjectsToFirestore(updatedWebsites);
-        navigate("/");
-      }
-    } catch (error) {
-      console.error("Error deleting website: ", error);
-    }
-  };
+  const handleOpenModal = () => setOpen(true);
 
   if (
     stateWebsite?.keyName === user?.name ||
@@ -133,6 +116,14 @@ const WebSite = () => {
           {(user?.name === ROLES.DEVELOPER ||
             user?.name === ROLES.SUPER_ADMIN) && (
             <Main
+              stateWebsite={stateWebsite}
+              setStateWebsite={setStateWebsite}
+            />
+          )}
+
+          {(user?.name === ROLES.DEVELOPER ||
+            user?.name === ROLES.SUPER_ADMIN) && (
+            <Languages
               stateWebsite={stateWebsite}
               setStateWebsite={setStateWebsite}
             />
@@ -204,7 +195,7 @@ const WebSite = () => {
 
             <Button
               value="Delete"
-              onClick={handleDelete}
+              onClick={handleOpenModal}
               color="error"
               variant="outlined"
               sx={{
@@ -215,6 +206,13 @@ const WebSite = () => {
             />
           </Stack>
         </Stack>
+
+        <ModalDeleteConfirmWebsite
+          stateWebsite={stateWebsite}
+          open={open}
+          setOpen={setOpen}
+          websites={websites}
+        />
       </Layout>
     );
   } else {

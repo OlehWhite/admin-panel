@@ -6,19 +6,24 @@ import { Avatar, Stack, Box, Typography } from "@mui/material";
 import logo from "../assets/logo.png";
 
 import { useLogOut } from "../store/logout.ts";
-import { getRoleName } from "../services/utils.ts";
 import { getCurrentUser } from "../store/getData.ts";
 
 import Button from "./shared/Button.tsx";
+import { ROLES } from "../services/constants.ts";
 
 interface Props {
   children: ReactNode;
+  userPage: boolean;
 }
 
-const Layout = ({ children }: Props) => {
+const Layout = ({ userPage, children }: Props) => {
   const navigate = useNavigate();
   const user = getCurrentUser();
-  const role = getRoleName(user?.name);
+
+  const role =
+    user?.name === ROLES.SUPER_ADMIN || user?.name === ROLES.DEVELOPER
+      ? "Super admin"
+      : "Admin";
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -43,6 +48,10 @@ const Layout = ({ children }: Props) => {
 
   const handleGoHome = () => {
     navigate("/");
+  };
+
+  const handleAddUser = () => {
+    navigate("/user");
   };
 
   return (
@@ -100,22 +109,35 @@ const Layout = ({ children }: Props) => {
       </Stack>
 
       <Stack width="100%" maxWidth="1440px" margin="0 auto" py={13}>
-        <Stack direction="row" gap={2}>
-          <Button
-            value="Back"
-            onClick={handleBack}
-            sx={{
-              width: 80,
-            }}
-          />
+        <Stack direction="row" justifyContent="space-between">
+          <Stack direction="row" gap={3}>
+            <Button
+              value="Back"
+              onClick={handleBack}
+              sx={{
+                width: 80,
+              }}
+            />
 
-          <Button
-            value="Home"
-            onClick={handleGoHome}
-            sx={{
-              width: 80,
-            }}
-          />
+            <Button
+              value="Home"
+              onClick={handleGoHome}
+              sx={{
+                width: 80,
+              }}
+            />
+          </Stack>
+
+          {((!userPage && user?.name === ROLES.SUPER_ADMIN) ||
+            user?.name === ROLES.DEVELOPER) && (
+            <Button
+              value="Add new user"
+              onClick={handleAddUser}
+              sx={{
+                width: 150,
+              }}
+            />
+          )}
         </Stack>
 
         {children}

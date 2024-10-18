@@ -12,6 +12,4 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 
-export const VERIFY_KEY = import.meta.env.VITE_ACCESS_KEY;
-
 export const db = getFirestore(app);

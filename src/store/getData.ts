@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { db } from "../services/firebase.ts";
-import { collection, onSnapshot, getDocs } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import {
   Project,
   Website,

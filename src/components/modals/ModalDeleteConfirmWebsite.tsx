@@ -1,31 +1,21 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Dialog, Stack, Typography } from "@mui/material";
 
-import {
-  Project,
-  Website,
-  WebsitesCollection,
-} from "../../types/websites.types.ts";
+import { Website, WebsitesCollection } from "../../types/websites.types.ts";
 
 import { saveProjectsToFirestore } from "../../store/updateProjects.ts";
 
 import Button from "../shared/Button.tsx";
 
 interface Props {
-  stateWebsite: Website;
   open: boolean;
   setOpen: (e: boolean) => void;
   websites: WebsitesCollection;
 }
 
-const ModalDeleteConfirmWebsite = ({
-  stateWebsite,
-  open,
-  setOpen,
-  websites,
-}: Props) => {
+const ModalDeleteConfirmWebsite = ({ open, setOpen, websites }: Props) => {
   const navigate = useNavigate();
-  const { id, idBlog } = useParams();
+  const { id } = useParams();
 
   const handleDelete = async () => {
     try {

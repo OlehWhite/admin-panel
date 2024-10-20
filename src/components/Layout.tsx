@@ -13,7 +13,7 @@ import { ROLES } from "../services/constants.ts";
 
 interface Props {
   children: ReactNode;
-  userPage: boolean;
+  userPage?: boolean;
 }
 
 const Layout = ({ userPage, children }: Props) => {

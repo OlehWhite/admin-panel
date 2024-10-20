@@ -5,7 +5,11 @@ import { db } from "../services/firebase.ts";
 import { toast } from "react-toastify";
 import { errorParams, successParams } from "../services/toastParams.ts";
 
-export const createUser = async (email, password, displayName) => {
+export const createUser = async (
+  email: string,
+  password: string,
+  name: string,
+) => {
   try {
     if (password.length < 6) {
       toast.error("Password must be at least 6 characters", errorParams);
@@ -28,12 +32,12 @@ export const createUser = async (email, password, displayName) => {
 
     // Оновлення профілю користувача з додаванням displayName
     await updateProfile(user, {
-      displayName: displayName,
+      displayName: name,
     });
 
     // Додавання додаткових даних у Firestore, включаючи дозволи на редагування проектів
     await setDoc(doc(db, "users", user.uid), {
-      displayName: displayName,
+      displayName: name,
       email: email,
       permissions: {
         projects: "edit", // або будь-які інші ролі, які визначають доступ

@@ -208,7 +208,6 @@ const WebSite = () => {
         </Stack>
 
         <ModalDeleteConfirmWebsite
-          stateWebsite={stateWebsite}
           open={open}
           setOpen={setOpen}
           websites={websites}

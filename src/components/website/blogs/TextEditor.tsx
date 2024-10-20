@@ -23,7 +23,7 @@ const TextEditor = ({ state, setState }: any) => {
 
   const onEditorStateChange = (editorState: EditorState) => {
     setEditorState(editorState);
-    setState((prevState) => ({
+    setState((prevState: any) => ({
       ...prevState,
       text: draftToHtml(convertToRaw(editorState.getCurrentContent())),
     }));

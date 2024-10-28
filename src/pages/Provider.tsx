@@ -274,7 +274,7 @@ const Provider = () => {
 
         {idProvider && (
           <Button
-            value="Delete this blog"
+            value="Delete this provider"
             onClick={handleOpenModal}
             color="error"
             variant="outlined"

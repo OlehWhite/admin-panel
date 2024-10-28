@@ -20,11 +20,10 @@ const Card = ({ website }: Props) => {
     return (
       <Stack
         width="100%"
-        maxWidth={403}
+        maxWidth={370}
         gap={1}
         p={3}
         borderRadius={2}
-        border="1px solid #000"
         sx={{
           cursor: "pointer",
           transition: ".5s",
@@ -34,6 +33,7 @@ const Card = ({ website }: Props) => {
           ":hover": {
             transition: ".5s",
             backgroundColor: "#a6eaf37a",
+            boxShadow: 1,
           },
         }}
         onClick={handleOpenCard}

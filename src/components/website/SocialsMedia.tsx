@@ -11,7 +11,12 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { IWebsiteState } from "../../types/websites.types.ts";
 
-const SocialsMedia = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
+const SocialsMedia = ({
+  stateWebsite,
+  setStateWebsite,
+  expandedAccordion,
+  handleAccordionChange,
+}: IWebsiteState) => {
   const handleChange = (
     e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
     index: number,
@@ -30,7 +35,10 @@ const SocialsMedia = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
   };
 
   return (
-    <Accordion>
+    <Accordion
+      expanded={expandedAccordion === "socialsMediaAccordion"}
+      onChange={handleAccordionChange}
+    >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="social-media"

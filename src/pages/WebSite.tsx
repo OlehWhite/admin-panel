@@ -33,6 +33,9 @@ const WebSite = () => {
 
   const [stateWebsite, setStateWebsite] = useState<Website>(DEFAULT_WEBSITE);
   const [open, setOpen] = useState<boolean>(false);
+  const [expandedAccordion, setExpandedAccordion] = useState<string | false>(
+    false,
+  );
 
   useEffect(() => {
     if (websites) {
@@ -95,6 +98,12 @@ const WebSite = () => {
 
   const handleOpenModal = () => setOpen(true);
 
+  const handleAccordionChange = (accordionId: string) => {
+    setExpandedAccordion((prev) =>
+      prev === accordionId ? false : accordionId,
+    );
+  };
+
   if (
     stateWebsite?.keyName === user?.name ||
     user?.name === ROLES.DEVELOPER ||
@@ -118,6 +127,10 @@ const WebSite = () => {
             <Main
               stateWebsite={stateWebsite}
               setStateWebsite={setStateWebsite}
+              expandedAccordion={expandedAccordion}
+              handleAccordionChange={() =>
+                handleAccordionChange("mainAccordion")
+              }
             />
           )}
 
@@ -126,12 +139,20 @@ const WebSite = () => {
             <Languages
               stateWebsite={stateWebsite}
               setStateWebsite={setStateWebsite}
+              expandedAccordion={expandedAccordion}
+              handleAccordionChange={() =>
+                handleAccordionChange("languagesAccordion")
+              }
             />
           )}
 
           <Schedule
             stateWebsite={stateWebsite}
             setStateWebsite={setStateWebsite}
+            expandedAccordion={expandedAccordion}
+            handleAccordionChange={() =>
+              handleAccordionChange("scheduleAccordion")
+            }
           />
 
           {(user?.name === ROLES.DEVELOPER ||
@@ -139,17 +160,29 @@ const WebSite = () => {
             <HeaderImages
               stateWebsite={stateWebsite}
               setStateWebsite={setStateWebsite}
+              expandedAccordion={expandedAccordion}
+              handleAccordionChange={() =>
+                handleAccordionChange("headerImagesAccordion")
+              }
             />
           )}
 
           <SocialsMedia
             stateWebsite={stateWebsite}
             setStateWebsite={setStateWebsite}
+            expandedAccordion={expandedAccordion}
+            handleAccordionChange={() =>
+              handleAccordionChange("socialsMediaAccordion")
+            }
           />
 
           <Blogs
             stateWebsite={stateWebsite}
             setStateWebsite={setStateWebsite}
+            expandedAccordion={expandedAccordion}
+            handleAccordionChange={() =>
+              handleAccordionChange("blogsAccordion")
+            }
           />
 
           {(user?.name === ROLES.DEVELOPER ||
@@ -157,6 +190,10 @@ const WebSite = () => {
             <Locations
               stateWebsite={stateWebsite}
               setStateWebsite={setStateWebsite}
+              expandedAccordion={expandedAccordion}
+              handleAccordionChange={() =>
+                handleAccordionChange("locationsAccordion")
+              }
             />
           )}
 
@@ -165,16 +202,21 @@ const WebSite = () => {
             <OurPartners
               stateWebsite={stateWebsite}
               setStateWebsite={setStateWebsite}
+              expandedAccordion={expandedAccordion}
+              handleAccordionChange={() =>
+                handleAccordionChange("ourPartnersAccordion")
+              }
             />
           )}
 
-          {(user?.name === ROLES.DEVELOPER ||
-            user?.name === ROLES.SUPER_ADMIN) && (
-            <Providers
-              stateWebsite={stateWebsite}
-              setStateWebsite={setStateWebsite}
-            />
-          )}
+          <Providers
+            stateWebsite={stateWebsite}
+            setStateWebsite={setStateWebsite}
+            expandedAccordion={expandedAccordion}
+            handleAccordionChange={() =>
+              handleAccordionChange("providersAccordion")
+            }
+          />
 
           <Stack
             mt={4}
@@ -193,17 +235,20 @@ const WebSite = () => {
               }}
             />
 
-            <Button
-              value="Delete"
-              onClick={handleOpenModal}
-              color="error"
-              variant="outlined"
-              sx={{
-                width: "100%",
-                maxWidth: 300,
-                height: 56,
-              }}
-            />
+            {(user?.name === ROLES.DEVELOPER ||
+              user?.name === ROLES.SUPER_ADMIN) && (
+              <Button
+                value="Delete"
+                onClick={handleOpenModal}
+                color="error"
+                variant="outlined"
+                sx={{
+                  width: "100%",
+                  maxWidth: 300,
+                  height: 56,
+                }}
+              />
+            )}
           </Stack>
         </Stack>
 

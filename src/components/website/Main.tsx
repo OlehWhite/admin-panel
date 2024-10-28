@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import {
   Accordion,
   AccordionDetails,
@@ -15,7 +15,12 @@ const sx = {
   maxWidth: 400,
 };
 
-const Main = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
+const Main = ({
+  stateWebsite,
+  setStateWebsite,
+  expandedAccordion,
+  handleAccordionChange,
+}: IWebsiteState) => {
   const formatString = (str: string) => {
     return str.replace(/\s+/g, "_").toUpperCase();
   };
@@ -31,7 +36,10 @@ const Main = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
   };
 
   return (
-    <Accordion>
+    <Accordion
+      expanded={expandedAccordion === "mainAccordion"}
+      onChange={handleAccordionChange}
+    >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="main"

@@ -14,7 +14,11 @@ import Button from "../shared/Button.tsx";
 import openImage from "../../assets/location-open.png";
 import openingSoonImage from "../../assets/location-opening-soon.png";
 
-const Locations = ({ stateWebsite }: IWebsiteState) => {
+const Locations = ({
+  stateWebsite,
+  expandedAccordion,
+  handleAccordionChange,
+}: IWebsiteState) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -38,7 +42,10 @@ const Locations = ({ stateWebsite }: IWebsiteState) => {
   };
 
   return (
-    <Accordion>
+    <Accordion
+      expanded={expandedAccordion === "locationsAccordion"}
+      onChange={handleAccordionChange}
+    >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="locations"

@@ -18,7 +18,7 @@ const Home = () => {
   const handleCreateWebsite = () => {
     navigate("/website");
   };
-  
+
   return (
     <Layout>
       <Typography
@@ -31,7 +31,7 @@ const Home = () => {
         Clinics
       </Typography>
 
-      <Stack direction="row" flexWrap="wrap" gap={5}>
+      <Stack direction="row" flexWrap="wrap" justifyContent="center" gap={5}>
         {Object.entries(websites)
           .sort(([keyA]: [string, Project], [keyB]: [string, Project]) =>
             keyA.localeCompare(keyB),

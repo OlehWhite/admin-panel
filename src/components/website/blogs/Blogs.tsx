@@ -14,7 +14,11 @@ import { IBlog, IWebsiteState } from "../../../types/websites.types.ts";
 
 import Button from "../../shared/Button.tsx";
 
-const Blogs = ({ stateWebsite }: IWebsiteState) => {
+const Blogs = ({
+  stateWebsite,
+  expandedAccordion,
+  handleAccordionChange,
+}: IWebsiteState) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -38,7 +42,10 @@ const Blogs = ({ stateWebsite }: IWebsiteState) => {
   };
 
   return (
-    <Accordion>
+    <Accordion
+      expanded={expandedAccordion === "blogsAccordion"}
+      onChange={handleAccordionChange}
+    >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="blogs"

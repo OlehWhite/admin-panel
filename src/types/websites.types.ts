@@ -83,4 +83,6 @@ export interface WebsitesCollection {
 export interface IWebsiteState {
   stateWebsite: Website;
   setStateWebsite: Dispatch<SetStateAction<Website>>;
+  expandedAccordion: string | false;
+  handleAccordionChange: () => void;
 }

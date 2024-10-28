@@ -10,7 +10,12 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { IWebsiteState } from "../../types/websites.types.ts";
 
-const Schedule = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
+const Schedule = ({
+  stateWebsite,
+  setStateWebsite,
+  expandedAccordion,
+  handleAccordionChange,
+}: IWebsiteState) => {
   const handleChange = (day: string, field: string, value: string) => {
     setStateWebsite((prevState) => ({
       ...prevState,
@@ -21,7 +26,10 @@ const Schedule = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
   };
 
   return (
-    <Accordion>
+    <Accordion
+      expanded={expandedAccordion === "scheduleAccordion"}
+      onChange={handleAccordionChange}
+    >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="schedule"

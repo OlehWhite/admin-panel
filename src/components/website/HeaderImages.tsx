@@ -17,7 +17,12 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import Button from "../shared/Button.tsx";
 
-const HeaderImages = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
+const HeaderImages = ({
+  stateWebsite,
+  setStateWebsite,
+  expandedAccordion,
+  handleAccordionChange,
+}: IWebsiteState) => {
   const handleAddNewBlock = () => {
     setStateWebsite((prevState) => ({
       ...prevState,
@@ -110,7 +115,10 @@ const HeaderImages = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
   };
 
   return (
-    <Accordion>
+    <Accordion
+      expanded={expandedAccordion === "headerImagesAccordion"}
+      onChange={handleAccordionChange}
+    >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="header-images"

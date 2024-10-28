@@ -16,7 +16,12 @@ import emptyImag from "../../assets/empty-img.png";
 
 import Button from "../shared/Button.tsx";
 
-const OurPartners = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
+const OurPartners = ({
+  stateWebsite,
+  setStateWebsite,
+  expandedAccordion,
+  handleAccordionChange,
+}: IWebsiteState) => {
   const handleAddNewPartner = () => {
     setStateWebsite((prevState) => ({
       ...prevState,
@@ -109,7 +114,10 @@ const OurPartners = ({ stateWebsite, setStateWebsite }: IWebsiteState) => {
   };
 
   return (
-    <Accordion>
+    <Accordion
+      expanded={expandedAccordion === "ourPartnersAccordion"}
+      onChange={handleAccordionChange}
+    >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="our-partners"

@@ -14,7 +14,11 @@ import { IProvider, IWebsiteState } from "../../types/websites.types.ts";
 
 import Button from "../shared/Button.tsx";
 
-const Providers = ({ stateWebsite }: IWebsiteState) => {
+const Providers = ({
+  stateWebsite,
+  expandedAccordion,
+  handleAccordionChange,
+}: IWebsiteState) => {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -38,7 +42,10 @@ const Providers = ({ stateWebsite }: IWebsiteState) => {
   };
 
   return (
-    <Accordion>
+    <Accordion
+      expanded={expandedAccordion === "providersAccordion"}
+      onChange={handleAccordionChange}
+    >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="providers"

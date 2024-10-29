@@ -22,6 +22,7 @@ import HeaderImages from "../components/website/HeaderImages.tsx";
 import SocialsMedia from "../components/website/SocialsMedia.tsx";
 import ModalDeleteConfirmWebsite from "../components/modals/ModalDeleteConfirmWebsite.tsx";
 import Languages from "../components/website/Languages.tsx";
+import Video from "../components/website/Video.tsx";
 
 const WebSite = () => {
   const { id } = useParams();
@@ -145,6 +146,15 @@ const WebSite = () => {
               }
             />
           )}
+
+          <Video
+            stateWebsite={stateWebsite}
+            setStateWebsite={setStateWebsite}
+            expandedAccordion={expandedAccordion}
+            handleAccordionChange={() =>
+              handleAccordionChange("videoAccordion")
+            }
+          />
 
           <Schedule
             stateWebsite={stateWebsite}

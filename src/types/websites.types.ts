@@ -16,6 +16,8 @@ export interface Website {
   ourPartners: IOurPartner[];
   providers: IProvider[];
   languages: string[];
+  video: string;
+  videoIcon: string;
 }
 
 export interface IOurPartner {

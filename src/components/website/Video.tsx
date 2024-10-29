@@ -29,13 +29,13 @@ const Video = ({
 }: IWebsiteState) => {
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
 
-  const uploadVideoToFirebase = async (file: File) => {
+  const uploadVideoToFirebase = async (file: File, index: any) => {
     if (file.size / 1024 / 1024 > MAX_VIDEO_SIZE_MB) {
       alert(`File size exceeds ${MAX_VIDEO_SIZE_MB} MB`);
       return;
     }
     const storage = getStorage();
-    const storageRef = ref(storage, `videos/${file.name}`);
+    const storageRef = ref(storage, `videos/${file.name}?${index}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
@@ -133,7 +133,7 @@ const Video = ({
               type="file"
               accept="image/*"
               style={{ display: "none" }}
-              onChange={(e) => handleFileChange(e)}
+              onChange={(e) => handleFileChange(e, new Date())}
             />
 
             {stateWebsite?.videoIcon && (
@@ -158,7 +158,7 @@ const Video = ({
               type="file"
               accept="video/*"
               style={{ display: "none" }}
-              onChange={(e) => handleMediaChange(e)}
+              onChange={(e) => handleMediaChange(e, new Date())}
             />
 
             {uploadProgress !== null && (

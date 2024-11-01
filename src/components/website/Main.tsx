@@ -9,6 +9,8 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { IWebsiteState } from "../../types/websites.types.ts";
+import { ROLES } from "../../services/constants.ts";
+import { getCurrentUser } from "../../store/getData.ts";
 
 const sx = {
   width: "100%",
@@ -21,6 +23,8 @@ const Main = ({
   expandedAccordion,
   handleAccordionChange,
 }: IWebsiteState) => {
+  const user = getCurrentUser();
+
   const formatString = (str: string) => {
     return str.replace(/\s+/g, "_").toUpperCase();
   };
@@ -66,6 +70,11 @@ const Main = ({
         <TextField
           label="Title"
           type="text"
+          disabled={
+            !(
+              user?.name === ROLES.DEVELOPER || user?.name === ROLES.SUPER_ADMIN
+            )
+          }
           value={stateWebsite?.title}
           onChange={handleChange}
           sx={sx}
@@ -74,6 +83,11 @@ const Main = ({
         <TextField
           label="Email"
           type="email"
+          disabled={
+            !(
+              user?.name === ROLES.DEVELOPER || user?.name === ROLES.SUPER_ADMIN
+            )
+          }
           value={stateWebsite.email}
           onChange={(e) => {
             setStateWebsite((prevState) => ({

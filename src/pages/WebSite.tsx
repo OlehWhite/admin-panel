@@ -123,17 +123,12 @@ const WebSite = () => {
         </Typography>
 
         <Stack gap={1}>
-          {(user?.name === ROLES.DEVELOPER ||
-            user?.name === ROLES.SUPER_ADMIN) && (
-            <Main
-              stateWebsite={stateWebsite}
-              setStateWebsite={setStateWebsite}
-              expandedAccordion={expandedAccordion}
-              handleAccordionChange={() =>
-                handleAccordionChange("mainAccordion")
-              }
-            />
-          )}
+          <Main
+            stateWebsite={stateWebsite}
+            setStateWebsite={setStateWebsite}
+            expandedAccordion={expandedAccordion}
+            handleAccordionChange={() => handleAccordionChange("mainAccordion")}
+          />
 
           {(user?.name === ROLES.DEVELOPER ||
             user?.name === ROLES.SUPER_ADMIN) && (
